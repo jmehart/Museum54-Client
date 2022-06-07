@@ -8,6 +8,7 @@ import { SingleArtist } from "./artists/SingleArtist.js"
 import { getCurrentUser } from "./users/UserManager";
 import { UserContext } from "../UserContext.js"
 import { CreateArtists } from "./artists/CreateArtists.js"
+import { Donate } from "./donate/Donate.js"
 
 export const ApplicationViews = ({ refreshState, setRefreshState }) => {
 
@@ -15,6 +16,9 @@ export const ApplicationViews = ({ refreshState, setRefreshState }) => {
         <>
             <Route exact path="/">
                 <Home />
+            </Route>
+            <Route exact path="/donate">
+                <Donate />
             </Route>
             <Route exact path="/artists">
                 <AllArtists refreshState={refreshState} setRefreshState={setRefreshState} />
