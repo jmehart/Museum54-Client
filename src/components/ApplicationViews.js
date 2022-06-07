@@ -7,6 +7,7 @@ import { User } from "./users/User.js"
 import { SingleArtist } from "./artists/SingleArtist.js"
 import { getCurrentUser } from "./users/UserManager";
 import { UserContext } from "../UserContext.js"
+import { CreateArtists } from "./artists/CreateArtists.js"
 
 export const ApplicationViews = ({ refreshState, setRefreshState }) => {
 
@@ -24,12 +25,12 @@ export const ApplicationViews = ({ refreshState, setRefreshState }) => {
             <Route exact path="/users/:userId(\d+)">
                 <User listView={false} refreshState={refreshState} setRefreshState={setRefreshState} />
             </Route> */}
-            {/* <Route exact path="/newArtist">
-                <CreateArtists tags={tags} editing={false} />
+            <Route exact path="/donate/artist">
+                <CreateArtists editing={false} />
             </Route>
             <Route exact path="/editArtist/:artistId(\d+)">
-                <CreateArtists setRefreshState={setRefreshState} refreshState={refreshState} tags={tags} editing={true} />
-            </Route> */}
+                <CreateArtists setRefreshState={setRefreshState} refreshState={refreshState} editing={true} />
+            </Route> 
             <Route exact path="/artists/:artistId(\d+)">
                 <SingleArtist refreshState={refreshState} setRefreshState={setRefreshState} />
             </Route>

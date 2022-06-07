@@ -49,9 +49,9 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
                     </div>
                     : ""
                 }
-                {/* <div className="navbar-item">
-                  <Link to="/newPost" className="navbar-item">New Post</Link>
-                </div> */}
+                <div className="navbar-item">
+                  <Link to="/donate/artist" className="navbar-item">Add Artist</Link>
+                </div>
                 {/* add link to UserList view */}
               </>
               : ""

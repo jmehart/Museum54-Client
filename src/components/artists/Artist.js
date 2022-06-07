@@ -88,6 +88,12 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                             </div>
 
                             <button onClick={() => {
+                                
+                                    history.push(`/editArtist/${artist.id}`)
+                                
+                            }}>Edit</button>
+
+                            <button onClick={() => {
                                 const copy = { ...artist }
                                 updateArtist(copy)
                                     .then(() => history.push('/artists'))
