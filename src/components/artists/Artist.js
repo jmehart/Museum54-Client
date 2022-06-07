@@ -6,7 +6,7 @@ import { UserContext } from "../../UserContext";
 import { updateArtist } from "./ArtistManager"
 // function that renders a single artist
 export const Artist = ({ listView, cardView, artist, refreshState, setRefreshState }) => {
-    const {currentUser} = useContext(UserContext)
+    const { currentUser } = useContext(UserContext)
     const history = useHistory()
 
 
@@ -21,7 +21,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                 ? <div key={`artist--${artist.id}`} className="artistCard">
                     <div className="cardTitle">
                         <div>
-                            <Link to={`/artists/single/${artist.id}`}>
+                            <Link to={`/artists/${artist.id}`}>
                                 {artist.name}
                             </Link>
                         </div>
@@ -42,16 +42,16 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                             }
                         </div> */}
                     </div>
-                    
+
                 </div>
                 : listView
                     ? <div key={`artist--${artist.id}`} className="singleArtist">
-                        { <div>
-                            <Link to={`/artists/single/${artist.id}`}>
+                        {<div>
+                            <Link to={`/artists/${artist.id}`}>
                                 {artist.name}
                             </Link>
-                            
-                        </div> }
+
+                        </div>}
 
                     </div>
                     : //Detailed artist single view 
@@ -67,26 +67,31 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                                             : null
                                     }
                                 </div> */}
-                                <div>{artist.name}</div>
+                                <h2>{artist.name}</h2>
                             </div>
                             <div><img src={`${artist.image || "https://picsum.photos/300/100"}`} /></div>
+                            <div className="artistDetailsBelowImage">
+                                <h4>Artist Details</h4>
+                                <div>Birth: {artist.birth}</div>
+                                <div>Death: {artist.death}</div>
+                                <div>Bio: {artist.bio}</div>
+                                <div>Nationality: {artist.nationality}</div>
+                            </div><br></br>
+
                             <div className="artistDetailsBelowCard">
-                                <div>Created By
-                                    <Link to={`/users/${artist.author.id}`} >
-                                        {artist.curator.user.username}
-                                    </Link>
-                                    <div>
-                                        {formatDate(artist.dateEntered)}
-                                    </div>
+                                <div>Submitted By: {artist.curator.user.username} on {formatDate(artist.dateEntered)}
+                                    {/* <Link to={`/users/${artist.author.id}`} > */}
+                                    {/* {artist.curator.user.username} */}
+                                    {/* </Link> */}
 
                                 </div>
                             </div>
 
                             <button onClick={() => {
-                                const copy = {...artist}
+                                const copy = { ...artist }
                                 updateArtist(copy)
-                                .then(() => history.push('/artists'))
-                            }}></button>
+                                    .then(() => history.push('/artists'))
+                            }}>Go Back</button>
                         </div>
                     </div>
         }

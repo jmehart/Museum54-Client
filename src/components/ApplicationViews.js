@@ -30,7 +30,7 @@ export const ApplicationViews = ({ refreshState, setRefreshState }) => {
             <Route exact path="/editArtist/:artistId(\d+)">
                 <CreateArtists setRefreshState={setRefreshState} refreshState={refreshState} tags={tags} editing={true} />
             </Route> */}
-            <Route exact path="/artists/single/:artistId(\d+)">
+            <Route exact path="/artists/:artistId(\d+)">
                 <SingleArtist refreshState={refreshState} setRefreshState={setRefreshState} />
             </Route>
             
