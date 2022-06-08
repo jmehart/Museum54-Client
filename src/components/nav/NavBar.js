@@ -41,18 +41,17 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
             token
               ?
               <>
-                <Link to="/artists" className="navbar-item">All Artists</Link>
-                {
-                  isStaff ?
-                    <div className="navbar-item">
-                      <Link to="/users" className="navbar-item">Users</Link>
-                    </div>
-                    : ""
-                }
-                {/* <div className="navbar-item">
-                  <Link to="/newPost" className="navbar-item">New Post</Link>
-                </div> */}
-                {/* add link to UserList view */}
+                <div className="navbar-item">
+                  <Link to="/collection" className="navbar-item">Collection</Link>
+                </div>
+                <div className="navbar-item">
+                  <Link to="/artists" className="navbar-item">Artists</Link>
+                </div>
+                <div className="navbar-item">
+                  <Link to="/donate" className="navbar-item">Donate</Link>
+                </div>
+
+
               </>
               : ""
           }

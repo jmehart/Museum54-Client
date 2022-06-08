@@ -22,7 +22,7 @@ export const getSingleArtist = (artistId) => {
 
 export const createArtist = (artist) => {
     return fetch(`${Settings.API}/artists`, {
-        method: "ARTIST",
+        method: "POST",
         headers: {
             "Authorization": `Token ${localStorage.getItem("token")}`,
             "Content-Type": "application/json"
