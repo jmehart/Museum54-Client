@@ -5,10 +5,13 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getAllArtists } from "../artists/ArtistManager";
 import { addClassification, removeClassification } from "../classifications/ClassificationManager";
+import { addStyle, removeStyle } from "../styles/StyleManager";
+import { addGenre, removeGenre } from "../genres/GenreManager";
+import { addMedium, removeMedium } from "../mediums/MediumManager";
 import { createArt, getSingleArt, updateArt } from "./ArtManager";
 import { UserContext } from "../../UserContext";
 
-export const CreateArt = ({ classifications, setRefreshState, refreshState }) => {
+export const CreateArt = ({ classifications, styles, genres, mediums, setRefreshState, refreshState }) => {
     const { currentUser } = useContext(UserContext)
     const [artists, setArtists] = useState([])
     const [originalArt, setOriginalArt] = useState({})
@@ -30,6 +33,9 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
     })
 
     const [selectedClassifications, setSelectedClassifications] = useState([])
+    const [selectedStyles, setSelectedStyles] = useState([])
+    const [selectedGenres, setSelectedGenres] = useState([])
+    const [selectedMediums, setSelectedMediums] = useState([])
 
     useEffect(() => {
         if (editMode) {
@@ -89,7 +95,10 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
                 framed: art.framed,
                 signature: art.signature,
                 user: art.user,
-                classification: selectedClassifications
+                classification: selectedClassifications,
+                style: selectedStyles,
+                genre: selectedGenres,
+                medium: selectedMediums
             })
                 .then(() => history.push(`/collection/art/${art.id}`))
 
@@ -108,7 +117,10 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
                 framed: false,
                 signature: false,
                 user: currentUser.id,
-                classification: selectedClassifications
+                classification: selectedClassifications,
+                style: selectedStyles,
+                genre: selectedGenres,
+                medium: selectedMediums
             })
                 .then(() => history.push(`/collection/art/${art.id}`))
         }
@@ -289,6 +301,195 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
                 </div>
             </fieldset>
 
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="style"> Styles: </label>
+                    {editMode == false ?
+                        styles.map(style => {
+                            return <>
+                                {selectedStyles.includes(style.id) ?
+                                    //if the style is in the array
+                                    <>
+                                        <input type="checkbox" key={`style--${style.id}`} checked={true} name={style.type} value={style.id} onClick={(e) => {
+                                            const copy = [...selectedStyles]
+                                            const filteredCopy = copy.filter(t => t != e.target.value)
+                                            setSelectedStyles(filteredCopy)
+                                        }} />
+                                        <label htmlFor={style.type}>{style.type}</label>
+                                    </>
+                                    : //If a style is not in the array
+                                    <>
+                                        <input type="checkbox" key={`style--${style.id}`} name={style.type} value={style.id} onClick={() => {
+                                            const copy = [...selectedStyles]
+                                            copy.push(style.id)
+                                            setSelectedStyles(copy)
+                                        }
+                                        } /><label htmlFor={style.type}>{style.type}</label>
+                                    </>
+                                }
+                            </>
+
+                        }) :
+                        styles.map(style => {
+                            return <>
+                                {(originalArt.style?.some(t => t.id === style.id) ?
+                                    <>
+                                        <input type="checkbox" key={`style--${style.id}`} checked={true} name={style.type} value={style.id}
+                                            onClick={(e) => {
+                                                const style = {}
+                                                style.style_id = e.target.value
+                                                removeStyle(style, originalArt.id)
+                                                    .then(() => setRefreshState(true))
+
+                                            }} />
+                                        <label htmlFor={style.type}>{style.type}</label>
+                                    </>
+                                    : <>
+                                        <input type="checkbox" key={`style--${style.id}`} name={style.type} value={style.id} onClick={(e) => {
+                                            const style = {}
+                                            style.style_id = e.target.value
+                                            addStyle(style, originalArt.id)
+                                                .then(() => setRefreshState(true))
+
+                                        }} />
+
+                                        <label htmlFor={style.type}>{style.type}
+                                        </label>
+                                    </>
+                                )}
+                            </>
+                        }
+                        )
+                    }
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="genre"> Genres: </label>
+                    {editMode == false ?
+                        genres.map(genre => {
+                            return <>
+                                {selectedGenres.includes(genre.id) ?
+                                    //if the genre is in the array
+                                    <>
+                                        <input type="checkbox" key={`genre--${genre.id}`} checked={true} name={genre.type} value={genre.id} onClick={(e) => {
+                                            const copy = [...selectedGenres]
+                                            const filteredCopy = copy.filter(t => t != e.target.value)
+                                            setSelectedGenres(filteredCopy)
+                                        }} />
+                                        <label htmlFor={genre.type}>{genre.type}</label>
+                                    </>
+                                    : //If a genre is not in the array
+                                    <>
+                                        <input type="checkbox" key={`genre--${genre.id}`} name={genre.type} value={genre.id} onClick={() => {
+                                            const copy = [...selectedGenres]
+                                            copy.push(genre.id)
+                                            setSelectedGenres(copy)
+                                        }
+                                        } /><label htmlFor={genre.type}>{genre.type}</label>
+                                    </>
+                                }
+                            </>
+
+                        }) :
+                        genres.map(genre => {
+                            return <>
+                                {(originalArt.genre?.some(t => t.id === genre.id) ?
+                                    <>
+                                        <input type="checkbox" key={`genre--${genre.id}`} checked={true} name={genre.type} value={genre.id}
+                                            onClick={(e) => {
+                                                const genre = {}
+                                                genre.genre_id = e.target.value
+                                                removeGenre(genre, originalArt.id)
+                                                    .then(() => setRefreshState(true))
+
+                                            }} />
+                                        <label htmlFor={genre.type}>{genre.type}</label>
+                                    </>
+                                    : <>
+                                        <input type="checkbox" key={`genre--${genre.id}`} name={genre.type} value={genre.id} onClick={(e) => {
+                                            const genre = {}
+                                            genre.genre_id = e.target.value
+                                            addGenre(genre, originalArt.id)
+                                                .then(() => setRefreshState(true))
+
+                                        }} />
+
+                                        <label htmlFor={genre.type}>{genre.type}
+                                        </label>
+                                    </>
+                                )}
+                            </>
+                        }
+                        )
+                    }
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="medium"> Mediums: </label>
+                    {editMode == false ?
+                        mediums.map(medium => {
+                            return <>
+                                {selectedMediums.includes(medium.id) ?
+                                    //if the medium is in the array
+                                    <>
+                                        <input type="checkbox" key={`medium--${medium.id}`} checked={true} name={medium.type} value={medium.id} onClick={(e) => {
+                                            const copy = [...selectedMediums]
+                                            const filteredCopy = copy.filter(t => t != e.target.value)
+                                            setSelectedMediums(filteredCopy)
+                                        }} />
+                                        <label htmlFor={medium.type}>{medium.type}</label>
+                                    </>
+                                    : //If a medium is not in the array
+                                    <>
+                                        <input type="checkbox" key={`medium--${medium.id}`} name={medium.type} value={medium.id} onClick={() => {
+                                            const copy = [...selectedMediums]
+                                            copy.push(medium.id)
+                                            setSelectedMediums(copy)
+                                        }
+                                        } /><label htmlFor={medium.type}>{medium.type}</label>
+                                    </>
+                                }
+                            </>
+
+                        }) :
+                        mediums.map(medium => {
+                            return <>
+                                {(originalArt.medium?.some(t => t.id === medium.id) ?
+                                    <>
+                                        <input type="checkbox" key={`medium--${medium.id}`} checked={true} name={medium.type} value={medium.id}
+                                            onClick={(e) => {
+                                                const medium = {}
+                                                medium.medium_id = e.target.value
+                                                removeMedium(medium, originalArt.id)
+                                                    .then(() => setRefreshState(true))
+
+                                            }} />
+                                        <label htmlFor={medium.type}>{medium.type}</label>
+                                    </>
+                                    : <>
+                                        <input type="checkbox" key={`medium--${medium.id}`} name={medium.type} value={medium.id} onClick={(e) => {
+                                            const medium = {}
+                                            medium.medium_id = e.target.value
+                                            addMedium(medium, originalArt.id)
+                                                .then(() => setRefreshState(true))
+
+                                        }} />
+
+                                        <label htmlFor={medium.type}>{medium.type}
+                                        </label>
+                                    </>
+                                )}
+                            </>
+                        }
+                        )
+                    }
+                </div>
+            </fieldset>
+
             <div>
                 <button type="submit"
                     onClick={evt => {
@@ -299,7 +500,7 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
                     {editMode ? "Save Changes" : "Create Art"}
                 </button>
             </div>
-            <Link to={`/collection/art/${art.id}`} className="cancel-btn">Cancel</Link>
+            {editMode ? <Link to={`/collection/art/${art.id}`} className="cancel-btn">Cancel</Link> : <Link to={'/donate'} className="cancel-btn">Cancel</Link>}
         </form>
     )
 }

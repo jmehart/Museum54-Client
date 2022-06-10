@@ -163,7 +163,7 @@ return (
                 {editMode ? "Save Changes" : "Create Artist"}
             </button>
         </div>
-        <Link to={`/artists/${artist.id}`} className="cancel-btn">Cancel</Link>
+        {editMode ? <Link to={`/artists/${artist.id}`} className="cancel-btn">Cancel</Link> : <Link to={'/donate'} className="cancel-btn">Cancel</Link>}
     </form>
 )
 }

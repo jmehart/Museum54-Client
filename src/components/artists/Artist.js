@@ -1,13 +1,30 @@
 import { useState, useEffect, useContext } from "react"
 import { useHistory } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { ButtonControls } from "../buttonControls/ButtonControls"
 import { UserContext } from "../../UserContext";
 import { updateArtist } from "./ArtistManager"
+import { getSingleArt } from "../art/ArtManager"
 // function that renders a single artist
 export const Artist = ({ listView, cardView, artist, refreshState, setRefreshState }) => {
     const { currentUser } = useContext(UserContext)
     const history = useHistory()
+
+
+    const [art, setArt] = useState({})
+
+    const { artId } = useParams()
+
+    useEffect(
+        () => {
+            if (artId) {
+                getSingleArt(artId)
+                    .then(setArt)
+            }
+        },
+        [artId]
+    )
 
 
     const formatDate = (entryDate) => {
@@ -48,11 +65,13 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                     ? <div key={`artist--${artist.id}`} className="singleArtist">
                         {<div>
                             <Link to={`/artists/${artist.id}`}>
-                                {artist.name}
+                                {artist.name} <br></br>
+                                <img width="200" height="200" src={`${artist.image || "https://picsum.photos/300/100"}`} />
+
                             </Link>
 
                         </div>}
-
+                        <br></br>
                     </div>
                     : //Detailed artist single view 
                     <div key={`artist--${artist.id}`} className="artistDetails">
@@ -78,8 +97,16 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                                 <div>Nationality: {artist.nationality}</div>
                             </div><br></br>
 
+                            <div><h4>Art created by {artist.name} </h4>
+                                <div>{artist.art.map(a =>
+                                    <div key={`artistArt${artist.id}${a.id}`}><Link to={`/collection/art/${a.id}`} className="cancel-btn"><p>{a.title}</p><img width="200" height="200" src={`${a.image || "https://picsum.photos/300/100"}`} /></Link></div>
+                                )}</div>
+
+                            </div>
+                            <br></br>
+
                             <div className="artistDetailsBelowCard">
-                                <div>Submitted By: {artist.curator.user.username} on {formatDate(artist.dateEntered)}
+                                <div>Artist Submitted By: {artist.curator.user.username} on {formatDate(artist.dateEntered)}
                                     {/* <Link to={`/users/${artist.author.id}`} > */}
                                     {/* {artist.curator.user.username} */}
                                     {/* </Link> */}
@@ -88,9 +115,9 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                             </div>
 
                             <button onClick={() => {
-                                
-                                    history.push(`/editArtist/${artist.id}`)
-                                
+
+                                history.push(`/editArtist/${artist.id}`)
+
                             }}>Edit</button>
 
                             <button onClick={() => {

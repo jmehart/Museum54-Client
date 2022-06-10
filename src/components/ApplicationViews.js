@@ -12,22 +12,48 @@ import { Donate } from "./donate/Donate.js"
 import { AllArt } from "./art/Collection.js"
 import { SingleArt } from "./art/SingleArt.js"
 import { CreateArt } from "./art/CreateArt.js"
-
 import { getAllClassifications } from "./classifications/ClassificationManager.js"
+import { getAllStyles } from "./styles/StyleManager.js"
+import { getAllGenres } from "./genres/GenreManager.js"
+import { getAllMediums } from "./mediums/MediumManager.js"
 
 
 export const ApplicationViews = ({ refreshState, setRefreshState }) => {
 
     const [classifications, setClassifications] = useState([])
+    const [styles, setStyles] = useState([])
+    const [genres, setGenres] = useState([])
+    const [mediums, setMediums] = useState([])
 
 
     // use UseEffect to getAllClassifications and set the state of the tag array.
     useEffect(() => {
-      getAllClassifications()
-        .then(data => setClassifications(data))
-        .then(setRefreshState(true))
+        getAllClassifications()
+            .then(data => setClassifications(data))
+            .then(setRefreshState(true))
     },
-      [refreshState])
+        [refreshState])
+
+    useEffect(() => {
+        getAllStyles()
+            .then(data => setStyles(data))
+            .then(setRefreshState(true))
+    },
+        [refreshState])
+
+    useEffect(() => {
+        getAllGenres()
+            .then(data => setGenres(data))
+            .then(setRefreshState(true))
+    },
+        [refreshState])
+
+        useEffect(() => {
+            getAllMediums()
+                .then(data => setMediums(data))
+                .then(setRefreshState(true))
+        },
+            [refreshState])
 
 
     return (
@@ -46,7 +72,7 @@ export const ApplicationViews = ({ refreshState, setRefreshState }) => {
             </Route>
             <Route exact path="/editArtist/:artistId(\d+)">
                 <CreateArtists setRefreshState={setRefreshState} refreshState={refreshState} editing={true} />
-            </Route> 
+            </Route>
             <Route exact path="/artists/:artistId(\d+)">
                 <SingleArtist refreshState={refreshState} setRefreshState={setRefreshState} />
             </Route>
@@ -54,11 +80,11 @@ export const ApplicationViews = ({ refreshState, setRefreshState }) => {
                 <AllArt refreshState={refreshState} setRefreshState={setRefreshState} />
             </Route>
             <Route exact path="/donate/art">
-                <CreateArt classifications={classifications} editing={false} />
+                <CreateArt classifications={classifications} styles={styles} genres={genres} mediums={mediums} editing={false} />
             </Route>
             <Route exact path="/editArt/:artId(\d+)">
-                <CreateArt setRefreshState={setRefreshState} refreshState={refreshState} classifications={classifications} editing={true} />
-            </Route> 
+                <CreateArt setRefreshState={setRefreshState} refreshState={refreshState} classifications={classifications} styles={styles} genres={genres} mediums={mediums} editing={true} />
+            </Route>
             <Route exact path="/collection/art/:artId(\d+)">
                 <SingleArt refreshState={refreshState} setRefreshState={setRefreshState} />
             </Route>
