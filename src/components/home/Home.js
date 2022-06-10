@@ -2,7 +2,7 @@
 
 export const Home = () => {
     return <div>
-        <div>Home Page</div>
+        <h1>Museum54</h1>
 
     </div>
 }

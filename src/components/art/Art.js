@@ -51,7 +51,7 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                             <Link to={`/collection/art/${art.id}`}>
                                 {art.title}
                             </Link>
-                            <ButtonControls isArt={true} id={art.id} />
+                            
                         </div>}
 
                     </div>
