@@ -73,6 +73,7 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
     const createNewArt = () => {
         const artist_id = parseInt(art.artist)
 
+
         if (editMode) {
             updateArt({
                 id: art.id,
@@ -90,7 +91,7 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
                 user: art.user,
                 classification: selectedClassifications
             })
-                .then(() => history.push("/collection"))
+                .then(() => history.push(`/collection/art/${art.id}`))
 
         } else {
 
@@ -109,34 +110,14 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
                 user: currentUser.id,
                 classification: selectedClassifications
             })
-                .then(() => history.push("/collection"))
+                .then(() => history.push(`/collection/art/${art.id}`))
         }
-}
+    }
 
-return (
-    <form className="artForm">
-        <h2 className="artForm__title">{editMode ? "Edit Art" : "Add Art"}</h2>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="title"> Art Title: </label>
-                <input type="text" id="title" name="title" required autoFocus className="form-control"
-                    placeholder="Title"
-                    value={art.title}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="description"> Description: </label>
-                <input type="text" name="description" id="description" required autoFocus className="form-control"
-                    placeholder="Description"
-                    value={art.description}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
+    return (
+        <form className="artForm">
+            <h2 className="artForm__title">{editMode ? "Edit Art" : "Add Art"}</h2>
+            <fieldset>
                 <div className="form_group">
                     <label htmlFor="artist"> Artist: </label>
                     <select name="artist" required autoFocus className="form-control" id="artist" placeholder="pick"
@@ -150,77 +131,102 @@ return (
                             )
                         })}
                     </select>
+                    <div>
+                        Artist not added yet? <Link to={`/donate/artist`}>
+                            Add Artist
+                        </Link>
+                    </div>
                 </div>
             </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="image"> Image URL: </label>
-                <input type="text" id="image" name="image" required autoFocus className="form-control"
-                    placeholder="Image Url"
-                    value={art.image}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="dateMade"> Date Made: </label>
-                <input type="text" name="dateMade" id="dateMade" required autoFocus className="form-control"
-                    placeholder="Date Made"
-                    value={art.dateMade}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="dateAcquired"> Date Acquired: </label>
-                <input type="text" name="dateAcquired" id="dateAcquired" required autoFocus className="form-control"
-                    placeholder="Date Acquired"
-                    value={art.dateAcquired}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="location"> Location: </label>
-                <input type="text" name="location" id="location" required autoFocus className="form-control"
-                    placeholder="Location"
-                    value={art.location}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="dimensions"> Dimensions: </label>
-                <input type="text" name="dimensions" id="dimensions" required autoFocus className="form-control"
-                    placeholder="Dimensions"
-                    value={art.dimensions}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="framed"> Framed: </label>
-                <input type="checkbox" name="framed" id="framed" required autoFocus className="form-control"
-                    value={art.framed}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="signature"> Signature: </label>
-                <input type="checkbox" name="signature" id="signature" required autoFocus className="form-control"
-                    value={art.signature}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="title"> Title: </label>
+                    <input type="text" id="title" name="title" required autoFocus className="form-control"
+                        placeholder="Title"
+                        value={art.title}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="description"> Description: </label>
+                    <input type="text" name="description" id="description" required autoFocus className="form-control"
+                        placeholder="Description"
+                        value={art.description}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="image"> Image URL: </label>
+                    <input type="text" id="image" name="image" required autoFocus className="form-control"
+                        placeholder="Image Url"
+                        value={art.image}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="dateMade"> Date Made: </label>
+                    <input type="text" name="dateMade" id="dateMade" required autoFocus className="form-control"
+                        placeholder="Date Made"
+                        value={art.dateMade}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="dateAcquired"> Date Acquired: </label>
+                    <input type="text" name="dateAcquired" id="dateAcquired" required autoFocus className="form-control"
+                        placeholder="Date Acquired"
+                        value={art.dateAcquired}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="location"> Location: </label>
+                    <input type="text" name="location" id="location" required autoFocus className="form-control"
+                        placeholder="Location"
+                        value={art.location}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="dimensions"> Dimensions: </label>
+                    <input type="text" name="dimensions" id="dimensions" required autoFocus className="form-control"
+                        placeholder="Dimensions"
+                        value={art.dimensions}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="framed"> Framed: </label>
+                    <input type="checkbox" name="framed" id="framed" required autoFocus className="form-control"
+                        value={art.framed}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="signature"> Signature: </label>
+                    <input type="checkbox" name="signature" id="signature" required autoFocus className="form-control"
+                        value={art.signature}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
                 <div className="form_group">
                     <label htmlFor="classification"> Classifications: </label>
                     {editMode == false ?
@@ -283,17 +289,17 @@ return (
                 </div>
             </fieldset>
 
-        <div>
-            <button type="submit"
-                onClick={evt => {
-                    evt.preventDefault()
-                    createNewArt()
-                }}
-                className="bt btn-primary">
-                {editMode ? "Save Changes" : "Create Art"}
-            </button>
-        </div>
-        <Link to="/collection" className="cancel-btn">Cancel</Link>
-    </form>
-)
+            <div>
+                <button type="submit"
+                    onClick={evt => {
+                        evt.preventDefault()
+                        createNewArt()
+                    }}
+                    className="bt btn-primary">
+                    {editMode ? "Save Changes" : "Create Art"}
+                </button>
+            </div>
+            <Link to={`/collection/art/${art.id}`} className="cancel-btn">Cancel</Link>
+        </form>
+    )
 }

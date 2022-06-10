@@ -71,7 +71,7 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                 dateEntered: artist.dateEntered,
                 user: artist.user
             })
-                .then(() => history.push("/artists"))
+                .then(() => history.push(`/artists/${artist.id}`))
 
         } else {
 
@@ -85,7 +85,7 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                 dateEntered: new Date(),
                 user: currentUser.id
             })
-                .then(() => history.push("/artists"))
+                .then(() => history.push(`/artists/${artist.id}`))
         }
 }
 
@@ -163,7 +163,7 @@ return (
                 {editMode ? "Save Changes" : "Create Artist"}
             </button>
         </div>
-        <Link to="/artists" className="cancel-btn">Cancel</Link>
+        <Link to={`/artists/${artist.id}`} className="cancel-btn">Cancel</Link>
     </form>
 )
 }
