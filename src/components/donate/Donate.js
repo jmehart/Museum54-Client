@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 export const Donate = () => {
 
     return <div>
-        <div>Donate Page</div>
+        <h2>Donate to Museum 54</h2>
 
         <div>
             <Link to={`/donate/artist`}>

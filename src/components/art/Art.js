@@ -49,11 +49,12 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                     ? <div key={`art--${art.id}`} className="singleArt">
                         {<div>
                             <Link to={`/collection/art/${art.id}`}>
-                                {art.title}
+                                {art.title}<br></br>
+                                <img width="200" height="200" src={`${art.image || "https://picsum.photos/300/100"}`} />
                             </Link>
-                            <ButtonControls isArt={true} id={art.id} />
-                        </div>}
 
+                        </div>}
+                        <br></br>
                     </div>
                     : //Detailed art single view 
                     <div key={`art--${art.id}`} className="artDetails">
@@ -81,18 +82,21 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                                 <div>Framed: {`${art.framed ? "Yes" : "No"}`}</div>
                                 <div>Signature: {`${art.signature ? "Yes" : "No"}`}</div>
                                 <div>Classifications: <ul>{art.classification.map(c => <li key={`artclassification${art.id}${c.id}`}>{c.type}</li>)}</ul></div>
+                                <div>Styles: <ul>{art.style.map(s => <li key={`artStyle${art.id}${s.id}`}>{s.type}</li>)}</ul></div>
+                                <div>Genres: <ul>{art.genre.map(g => <li key={`artGenre${art.id}${g.id}`}>{g.type}</li>)}</ul></div>
+                                <div>Mediums: <ul>{art.medium.map(m => <li key={`artMedium${art.id}${m.id}`}>{m.type}</li>)}</ul></div>
                             </div><br></br>
                             <div className="artistDetailsBelowImage">
                                 <h4>Artist Details</h4>
                                 Name: <Link to={`/artists/${art.artist.id}`}>
                                     {art.artist?.name}
-                                </Link>
+                                </Link><br></br>
                                 <img width="175" height="200" src={`${art.artist?.image || "https://picsum.photos/300/100"}`} />
                                 <div>Bio: {art.artist?.bio}</div>
                             </div><br></br>
 
                             <div className="artDetailsBelowCard">
-                                <div>Submitted By: {art.curator.user.username} on {formatDate(art.dateEntered)}
+                                <div>Art Submitted By: {art.curator.user.username} on {formatDate(art.dateEntered)}
                                     {/* <Link to={`/users/${art.author.id}`} > */}
                                     {/* {art.curator.user.username} */}
                                     {/* </Link> */}

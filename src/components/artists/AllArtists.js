@@ -29,7 +29,7 @@ export const AllArtists = ({ setRefreshState, refreshState }) => {
     return <>
 
         <div className="singleArtist">
-
+        <h2>Artists</h2>
         </div>
         {
             artists.length > 0

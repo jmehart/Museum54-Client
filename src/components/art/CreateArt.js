@@ -5,10 +5,13 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { getAllArtists } from "../artists/ArtistManager";
 import { addClassification, removeClassification } from "../classifications/ClassificationManager";
+import { addStyle, removeStyle } from "../styles/StyleManager";
+import { addGenre, removeGenre } from "../genres/GenreManager";
+import { addMedium, removeMedium } from "../mediums/MediumManager";
 import { createArt, getSingleArt, updateArt } from "./ArtManager";
 import { UserContext } from "../../UserContext";
 
-export const CreateArt = ({ classifications, setRefreshState, refreshState }) => {
+export const CreateArt = ({ classifications, styles, genres, mediums, setRefreshState, refreshState }) => {
     const { currentUser } = useContext(UserContext)
     const [artists, setArtists] = useState([])
     const [originalArt, setOriginalArt] = useState({})
@@ -30,6 +33,9 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
     })
 
     const [selectedClassifications, setSelectedClassifications] = useState([])
+    const [selectedStyles, setSelectedStyles] = useState([])
+    const [selectedGenres, setSelectedGenres] = useState([])
+    const [selectedMediums, setSelectedMediums] = useState([])
 
     useEffect(() => {
         if (editMode) {
@@ -73,6 +79,7 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
     const createNewArt = () => {
         const artist_id = parseInt(art.artist)
 
+
         if (editMode) {
             updateArt({
                 id: art.id,
@@ -88,9 +95,12 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
                 framed: art.framed,
                 signature: art.signature,
                 user: art.user,
-                classification: selectedClassifications
+                classification: selectedClassifications,
+                style: selectedStyles,
+                genre: selectedGenres,
+                medium: selectedMediums
             })
-                .then(() => history.push("/collection"))
+                .then(() => history.push(`/collection/art/${art.id}`))
 
         } else {
 
@@ -107,36 +117,19 @@ export const CreateArt = ({ classifications, setRefreshState, refreshState }) =>
                 framed: false,
                 signature: false,
                 user: currentUser.id,
-                classification: selectedClassifications
+                classification: selectedClassifications,
+                style: selectedStyles,
+                genre: selectedGenres,
+                medium: selectedMediums
             })
-                .then(() => history.push("/collection"))
+                .then(() => history.push(`/collection/art/${art.id}`))
         }
-}
+    }
 
-return (
-    <form className="artForm">
-        <h2 className="artForm__title">{editMode ? "Edit Art" : "Add Art"}</h2>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="title"> Art Title: </label>
-                <input type="text" id="title" name="title" required autoFocus className="form-control"
-                    placeholder="Title"
-                    value={art.title}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="description"> Description: </label>
-                <input type="text" name="description" id="description" required autoFocus className="form-control"
-                    placeholder="Description"
-                    value={art.description}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
+    return (
+        <form className="artForm">
+            <h2 className="artForm__title">{editMode ? "Edit Art" : "Add Art"}</h2>
+            <fieldset>
                 <div className="form_group">
                     <label htmlFor="artist"> Artist: </label>
                     <select name="artist" required autoFocus className="form-control" id="artist" placeholder="pick"
@@ -150,77 +143,102 @@ return (
                             )
                         })}
                     </select>
+                    <div>
+                        Artist not added yet? <Link to={`/donate/artist`}>
+                            Add Artist
+                        </Link>
+                    </div>
                 </div>
             </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="image"> Image URL: </label>
-                <input type="text" id="image" name="image" required autoFocus className="form-control"
-                    placeholder="Image Url"
-                    value={art.image}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="dateMade"> Date Made: </label>
-                <input type="text" name="dateMade" id="dateMade" required autoFocus className="form-control"
-                    placeholder="Date Made"
-                    value={art.dateMade}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="dateAcquired"> Date Acquired: </label>
-                <input type="text" name="dateAcquired" id="dateAcquired" required autoFocus className="form-control"
-                    placeholder="Date Acquired"
-                    value={art.dateAcquired}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="location"> Location: </label>
-                <input type="text" name="location" id="location" required autoFocus className="form-control"
-                    placeholder="Location"
-                    value={art.location}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="dimensions"> Dimensions: </label>
-                <input type="text" name="dimensions" id="dimensions" required autoFocus className="form-control"
-                    placeholder="Dimensions"
-                    value={art.dimensions}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="framed"> Framed: </label>
-                <input type="checkbox" name="framed" id="framed" required autoFocus className="form-control"
-                    value={art.framed}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="signature"> Signature: </label>
-                <input type="checkbox" name="signature" id="signature" required autoFocus className="form-control"
-                    value={art.signature}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="title"> Title: </label>
+                    <input type="text" id="title" name="title" required autoFocus className="form-control"
+                        placeholder="Title"
+                        value={art.title}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="description"> Description: </label>
+                    <input type="text" name="description" id="description" required autoFocus className="form-control"
+                        placeholder="Description"
+                        value={art.description}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="image"> Image URL: </label>
+                    <input type="text" id="image" name="image" required autoFocus className="form-control"
+                        placeholder="Image Url"
+                        value={art.image}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="dateMade"> Date Made: </label>
+                    <input type="text" name="dateMade" id="dateMade" required autoFocus className="form-control"
+                        placeholder="Date Made"
+                        value={art.dateMade}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="dateAcquired"> Date Acquired: </label>
+                    <input type="text" name="dateAcquired" id="dateAcquired" required autoFocus className="form-control"
+                        placeholder="Date Acquired"
+                        value={art.dateAcquired}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="location"> Location: </label>
+                    <input type="text" name="location" id="location" required autoFocus className="form-control"
+                        placeholder="Location"
+                        value={art.location}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="dimensions"> Dimensions: </label>
+                    <input type="text" name="dimensions" id="dimensions" required autoFocus className="form-control"
+                        placeholder="Dimensions"
+                        value={art.dimensions}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="framed"> Framed: </label>
+                    <input type="checkbox" name="framed" id="framed" required autoFocus className="form-control"
+                        value={art.framed}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="signature"> Signature: </label>
+                    <input type="checkbox" name="signature" id="signature" required autoFocus className="form-control"
+                        value={art.signature}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            </fieldset>
+            <fieldset>
                 <div className="form_group">
                     <label htmlFor="classification"> Classifications: </label>
                     {editMode == false ?
@@ -283,17 +301,206 @@ return (
                 </div>
             </fieldset>
 
-        <div>
-            <button type="submit"
-                onClick={evt => {
-                    evt.preventDefault()
-                    createNewArt()
-                }}
-                className="bt btn-primary">
-                {editMode ? "Save Changes" : "Create Art"}
-            </button>
-        </div>
-        <Link to="/collection" className="cancel-btn">Cancel</Link>
-    </form>
-)
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="style"> Styles: </label>
+                    {editMode == false ?
+                        styles.map(style => {
+                            return <>
+                                {selectedStyles.includes(style.id) ?
+                                    //if the style is in the array
+                                    <>
+                                        <input type="checkbox" key={`style--${style.id}`} checked={true} name={style.type} value={style.id} onClick={(e) => {
+                                            const copy = [...selectedStyles]
+                                            const filteredCopy = copy.filter(t => t != e.target.value)
+                                            setSelectedStyles(filteredCopy)
+                                        }} />
+                                        <label htmlFor={style.type}>{style.type}</label>
+                                    </>
+                                    : //If a style is not in the array
+                                    <>
+                                        <input type="checkbox" key={`style--${style.id}`} name={style.type} value={style.id} onClick={() => {
+                                            const copy = [...selectedStyles]
+                                            copy.push(style.id)
+                                            setSelectedStyles(copy)
+                                        }
+                                        } /><label htmlFor={style.type}>{style.type}</label>
+                                    </>
+                                }
+                            </>
+
+                        }) :
+                        styles.map(style => {
+                            return <>
+                                {(originalArt.style?.some(t => t.id === style.id) ?
+                                    <>
+                                        <input type="checkbox" key={`style--${style.id}`} checked={true} name={style.type} value={style.id}
+                                            onClick={(e) => {
+                                                const style = {}
+                                                style.style_id = e.target.value
+                                                removeStyle(style, originalArt.id)
+                                                    .then(() => setRefreshState(true))
+
+                                            }} />
+                                        <label htmlFor={style.type}>{style.type}</label>
+                                    </>
+                                    : <>
+                                        <input type="checkbox" key={`style--${style.id}`} name={style.type} value={style.id} onClick={(e) => {
+                                            const style = {}
+                                            style.style_id = e.target.value
+                                            addStyle(style, originalArt.id)
+                                                .then(() => setRefreshState(true))
+
+                                        }} />
+
+                                        <label htmlFor={style.type}>{style.type}
+                                        </label>
+                                    </>
+                                )}
+                            </>
+                        }
+                        )
+                    }
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="genre"> Genres: </label>
+                    {editMode == false ?
+                        genres.map(genre => {
+                            return <>
+                                {selectedGenres.includes(genre.id) ?
+                                    //if the genre is in the array
+                                    <>
+                                        <input type="checkbox" key={`genre--${genre.id}`} checked={true} name={genre.type} value={genre.id} onClick={(e) => {
+                                            const copy = [...selectedGenres]
+                                            const filteredCopy = copy.filter(t => t != e.target.value)
+                                            setSelectedGenres(filteredCopy)
+                                        }} />
+                                        <label htmlFor={genre.type}>{genre.type}</label>
+                                    </>
+                                    : //If a genre is not in the array
+                                    <>
+                                        <input type="checkbox" key={`genre--${genre.id}`} name={genre.type} value={genre.id} onClick={() => {
+                                            const copy = [...selectedGenres]
+                                            copy.push(genre.id)
+                                            setSelectedGenres(copy)
+                                        }
+                                        } /><label htmlFor={genre.type}>{genre.type}</label>
+                                    </>
+                                }
+                            </>
+
+                        }) :
+                        genres.map(genre => {
+                            return <>
+                                {(originalArt.genre?.some(t => t.id === genre.id) ?
+                                    <>
+                                        <input type="checkbox" key={`genre--${genre.id}`} checked={true} name={genre.type} value={genre.id}
+                                            onClick={(e) => {
+                                                const genre = {}
+                                                genre.genre_id = e.target.value
+                                                removeGenre(genre, originalArt.id)
+                                                    .then(() => setRefreshState(true))
+
+                                            }} />
+                                        <label htmlFor={genre.type}>{genre.type}</label>
+                                    </>
+                                    : <>
+                                        <input type="checkbox" key={`genre--${genre.id}`} name={genre.type} value={genre.id} onClick={(e) => {
+                                            const genre = {}
+                                            genre.genre_id = e.target.value
+                                            addGenre(genre, originalArt.id)
+                                                .then(() => setRefreshState(true))
+
+                                        }} />
+
+                                        <label htmlFor={genre.type}>{genre.type}
+                                        </label>
+                                    </>
+                                )}
+                            </>
+                        }
+                        )
+                    }
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div className="form_group">
+                    <label htmlFor="medium"> Mediums: </label>
+                    {editMode == false ?
+                        mediums.map(medium => {
+                            return <>
+                                {selectedMediums.includes(medium.id) ?
+                                    //if the medium is in the array
+                                    <>
+                                        <input type="checkbox" key={`medium--${medium.id}`} checked={true} name={medium.type} value={medium.id} onClick={(e) => {
+                                            const copy = [...selectedMediums]
+                                            const filteredCopy = copy.filter(t => t != e.target.value)
+                                            setSelectedMediums(filteredCopy)
+                                        }} />
+                                        <label htmlFor={medium.type}>{medium.type}</label>
+                                    </>
+                                    : //If a medium is not in the array
+                                    <>
+                                        <input type="checkbox" key={`medium--${medium.id}`} name={medium.type} value={medium.id} onClick={() => {
+                                            const copy = [...selectedMediums]
+                                            copy.push(medium.id)
+                                            setSelectedMediums(copy)
+                                        }
+                                        } /><label htmlFor={medium.type}>{medium.type}</label>
+                                    </>
+                                }
+                            </>
+
+                        }) :
+                        mediums.map(medium => {
+                            return <>
+                                {(originalArt.medium?.some(t => t.id === medium.id) ?
+                                    <>
+                                        <input type="checkbox" key={`medium--${medium.id}`} checked={true} name={medium.type} value={medium.id}
+                                            onClick={(e) => {
+                                                const medium = {}
+                                                medium.medium_id = e.target.value
+                                                removeMedium(medium, originalArt.id)
+                                                    .then(() => setRefreshState(true))
+
+                                            }} />
+                                        <label htmlFor={medium.type}>{medium.type}</label>
+                                    </>
+                                    : <>
+                                        <input type="checkbox" key={`medium--${medium.id}`} name={medium.type} value={medium.id} onClick={(e) => {
+                                            const medium = {}
+                                            medium.medium_id = e.target.value
+                                            addMedium(medium, originalArt.id)
+                                                .then(() => setRefreshState(true))
+
+                                        }} />
+
+                                        <label htmlFor={medium.type}>{medium.type}
+                                        </label>
+                                    </>
+                                )}
+                            </>
+                        }
+                        )
+                    }
+                </div>
+            </fieldset>
+
+            <div>
+                <button type="submit"
+                    onClick={evt => {
+                        evt.preventDefault()
+                        createNewArt()
+                    }}
+                    className="bt btn-primary">
+                    {editMode ? "Save Changes" : "Create Art"}
+                </button>
+            </div>
+            {editMode ? <Link to={`/collection/art/${art.id}`} className="cancel-btn">Cancel</Link> : <Link to={'/donate'} className="cancel-btn">Cancel</Link>}
+        </form>
+    )
 }

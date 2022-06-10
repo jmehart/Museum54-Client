@@ -29,7 +29,7 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
     return <>
 
         <div className="singleArt">
-
+        <h2>Collection</h2>
         </div>
         {
             art.length > 0
