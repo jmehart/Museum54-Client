@@ -50,6 +50,7 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                         {<div>
                             <Link to={`/collection/art/${art.id}`}>
                                 {art.title}
+                                <img width="200" height="200" src={`${art.image || "https://picsum.photos/300/100"}`} />
                             </Link>
                             
                         </div>}
