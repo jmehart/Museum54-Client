@@ -31,7 +31,7 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
             const copy = {}
             copy.id = originalArtist.id
             copy.name = originalArtist.name
-            copy.bio = originalArtist.birth
+            copy.bio = originalArtist.bio
             copy.image = originalArtist.image
             copy.birth = originalArtist.birth
             copy.death = originalArtist.death

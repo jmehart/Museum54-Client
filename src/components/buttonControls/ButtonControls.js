@@ -1,6 +1,8 @@
 import { Settings } from "../utils/Settings"
 import { useHistory } from "react-router-dom"
 import { useEffect, useState, useContext } from "react"
+import { deleteArt } from "../art/ArtManager"
+
 
 export const ButtonControls = ({ isArt, id, artId, setRefreshState }) => {
     const history = useHistory()
@@ -12,11 +14,11 @@ export const ButtonControls = ({ isArt, id, artId, setRefreshState }) => {
             {
                 isArt ? <div>Are you sure you want to delete this art?</div>
 
-                            : <div>Are you sure you want to delete this artist?</div>
+                    : <div>Are you sure you want to delete this artist?</div>
             }
 
             <div>
-                {/* <button
+                <button
 
                     onClick={
                         (e) => {
@@ -27,10 +29,10 @@ export const ButtonControls = ({ isArt, id, artId, setRefreshState }) => {
                                         () => {
                                             history.push("/")
                                         })
-                            } 
+                            }
                         }
                     }
-                >Okay</button> */}
+                >Okay</button>
                 <button
                     onClick={
                         (e) => {
@@ -45,18 +47,18 @@ export const ButtonControls = ({ isArt, id, artId, setRefreshState }) => {
 
         </dialog>
         {/* -------------edit button------------- */}
-        {/* <button onClick={() => {
-            if (isArtist) {
-                history.push(`/editArtist/${id}`)
+        <button onClick={() => {
+            if (isArt) {
+                history.push(`/editArt/${id}`)
             } 
         }}>
-            <img className="editIcon" src={`${Settings.EditIcon}`} width="25px" height="25px" />
-        </button> */}
+            Edit
+        </button>
         <button onClick={() => {
             const buttonTarget = document.querySelector(`#anything-${id}`)
             buttonTarget.showModal()
         }}>
-            <img className="deleteIcon" src={`${Settings.DeleteIcon}`} width="25px" height="25px" />
+            Delete
         </button>
     </div >
 }
