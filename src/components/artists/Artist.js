@@ -106,7 +106,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                             <br></br>
 
                             <div className="artistDetailsBelowCard">
-                                <div>Artist Submitted By: {artist.curator.user.username} on {formatDate(artist.dateEntered)}
+                                <div>Artist Submitted By: {artist.curator?.user?.username} on {formatDate(artist.dateEntered)}
                                     {/* <Link to={`/users/${artist.author.id}`} > */}
                                     {/* {artist.curator.user.username} */}
                                     {/* </Link> */}
