@@ -28,7 +28,7 @@ export const createArtist = (artist) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(artist)
-    }).then(getAllArtists)
+    }).then(res => res.json())
 };
 
 

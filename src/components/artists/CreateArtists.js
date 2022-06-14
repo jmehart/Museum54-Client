@@ -85,7 +85,7 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                 dateEntered: new Date(),
                 user: currentUser.id
             })
-                .then(() => history.push(`/artists/${artist.id}`))
+                .then((res) => history.push(`/artists/${res.id}`))
         }
 }
 

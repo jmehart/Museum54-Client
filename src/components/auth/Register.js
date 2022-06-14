@@ -4,7 +4,7 @@ import { registerUser } from "./AuthManager"
 import './Auth.css'
 // TODO: This should get you started on registering a new user. 
 // Add new fields depending on your server side registration
-export const Register = () => {
+export const Register = ( { setToken }) => {
   const username = useRef()
   const password = useRef()
   const history = useHistory()
@@ -19,7 +19,7 @@ export const Register = () => {
 
     registerUser(newUser).then(res => {
       if ("token" in res) {
-        localStorage.setItem("token", res.token)
+        setToken(res.token)
         history.push("/")
       }
     })

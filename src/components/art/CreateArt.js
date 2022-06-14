@@ -122,7 +122,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                 genre: selectedGenres,
                 medium: selectedMediums
             })
-                .then(() => history.push(`/collection/art/${art.id}`))
+                .then((res) => history.push(`/collection/art/${res.id}`))
         }
     }
 

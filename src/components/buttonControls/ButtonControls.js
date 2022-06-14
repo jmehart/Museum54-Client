@@ -27,7 +27,7 @@ export const ButtonControls = ({ isArt, id, artId, setRefreshState }) => {
                                 deleteArt(id)
                                     .then(
                                         () => {
-                                            history.push("/")
+                                            history.push("/collection")
                                         })
                             }
                         }

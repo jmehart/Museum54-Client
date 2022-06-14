@@ -28,7 +28,7 @@ export const createArt = (art) => {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(art)
-    }).then(getAllArt)
+    }).then(res => res.json())
 };
 
 
