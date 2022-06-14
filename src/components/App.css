@@ -1,0 +1,51 @@
+/* Import the google web fonts you want to use */
+@import url("https://fonts.googleapis.com/css?family=Comfortaa|Patua+One");
+
+/*Typography
+--------------------------------------------------------------*/
+body,
+button,
+input,
+select,
+textarea {
+    color: #404040;
+    font-family: "Comfortaa", Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+body {
+    padding: 0 1rem;
+    margin-bottom: 10em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Patua One", serif;
+    letter-spacing: 2px;
+}
+
+p {
+    margin-bottom: 1.5em;
+}
+
+
+:root {
+    --maing-bg-colour: #1a1a1a;
+    --primary-colour: #ffd23f;
+    --secondary-colour: #ee6142;
+
+    --main-highlight-colour: #ee6142;
+    --second-highlight-colour: #ffd23f;
+
+    --main-font-colour: rgb(0, 0, 0);
+    --main-font-weight: 600;
+    --main-font-size: 1.25vw;
+
+    /** Search Page */
+    --input-border-colour: #d8d4d5;
+}

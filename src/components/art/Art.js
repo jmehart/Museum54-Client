@@ -61,12 +61,7 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                         <div className="artDetailsMain">
                             <div className="artDetailsTitle">
                                 <div className="cardButtons">
-                                    {
-                                        <>
-                                            <ButtonControls isArt={true} id={art.id} />
-                                        </>
-
-                                    }
+                                   
                                 </div>
                                 <h2>{art.title}</h2>
                                 <h3>By {art.artist?.name}</h3>
