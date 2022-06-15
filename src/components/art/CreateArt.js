@@ -184,12 +184,19 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
 
     return (
         <form className="artForm">
-            <h2 className="artForm__title">{editMode ? "Edit Art" : "Add Art"}</h2>
+            <br></br>
+            <div className="columns is-centered">
+                <div className="is-full">
+                    <h1 className="title">{editMode ? "Edit Art" : "Add Art"}</h1>
+                </div>
+            </div>
+            <br></br>
+
 
             <div className="container">
                 <div className="columns is-multiline is-centered">
-                    <div className="column is-one-quarter"></div>
-                    <div className="column is-one-quarter">
+                    <div className="column is-one-fifth"></div>
+                    <div className="column is-one-fifth">
                         <fieldset>
                             <div className="field">
                                 <label className="label" htmlFor="image"> Image URL: </label>
@@ -203,7 +210,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             </div>
                         </fieldset>
                     </div>
-                    <div className="column is-one-quarter">
+                    <div className="column is-two-fifths">
                         <fieldset>
                             <div className="field">
                                 <label className="label" htmlFor="artist"> Artist: </label>
@@ -343,101 +350,103 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
 
                         <fieldset>
                             <div className="field">
-                                <label class="label" htmlFor="classification"> Classifications: </label>
-                                <div onClick={toggleClassificationExpanded}>
-                                    <div
-                                        className={`font-semibold cursor-pointer ${expandedClass ? "up-arrow" : "down-arrow"
-                                            }`}
-                                    >
-                                        {selections.length
-                                            ? selections.map((name, i) => (
-                                                <span key={i}>
-                                                    {i ? ", " : null}
-                                                    {name}
-                                                </span>
-                                            ))
-                                            : "Select"}
+                                <div className="control">
+                                    <label className="label" htmlFor="classification"> Classifications: </label>
+                                    <div onClick={toggleClassificationExpanded}>
+                                        <div
+                                            className={`font-semibold cursor-pointer ${expandedClass ? "up-arrow" : "down-arrow"
+                                                }`}
+                                        >
+                                            {selections.length
+                                                ? selections.map((name, i) => (
+                                                    <span key={i}>
+                                                        {i ? ", " : null}
+                                                        {name}
+                                                    </span>
+                                                ))
+                                                : "Select"}
+                                        </div>
                                     </div>
-                                </div>
-                                {editMode == false ?
-                                    classifications.map(classification => {
-                                        return <>
-                                            {selectedClassifications.includes(classification.id) ?
-                                                //if the classification is in the array
-                                                <>
-                                                    <input type="checkbox" key={`classification--${classification.id}`} defaultChecked={true} name={classification.type} value={classification.id} onClick={(e) => {
-                                                        const copy = [...selectedClassifications]
-                                                        const filteredCopy = copy.filter(t => t != e.target.value)
-                                                        setSelectedClassifications(filteredCopy)
-                                                        handleChange()
-                                                    }} />
-                                                    <label htmlFor={classification.type}>{classification.type}</label>
-                                                </>
-                                                : //If a classification is not in the array
-                                                <>
-                                                    {expandedClass && (
-                                                        <div className="border-gray-200 border border-solid">
-                                                            <label htmlFor={classification.type}>
-                                                                <input type="checkbox" key={`classification--${classification.id}`} name={classification.type} value={classification.id} onClick={() => {
-                                                                    const copy = [...selectedClassifications]
-                                                                    copy.push(classification.id)
-                                                                    setSelectedClassifications(copy)
-                                                                    handleChange()
-                                                                }
-                                                                } />{classification.type}</label>
-                                                        </div>)}</>
-                                            }
-                                        </>
+                                    {editMode == false ?
+                                        classifications.map(classification => {
+                                            return <>
+                                                {selectedClassifications.includes(classification.id) ?
+                                                    //if the classification is in the array
+                                                    <>
+                                                        <input type="checkbox" key={`classification--${classification.id}`} defaultChecked={true} name={classification.type} value={classification.id} onClick={(e) => {
+                                                            const copy = [...selectedClassifications]
+                                                            const filteredCopy = copy.filter(t => t != e.target.value)
+                                                            setSelectedClassifications(filteredCopy)
+                                                            handleChange()
+                                                        }} />
+                                                        <label htmlFor={classification.type}>{classification.type}</label>
+                                                    </>
+                                                    : //If a classification is not in the array
+                                                    <>
+                                                        {expandedClass && (
+                                                            <div className="border-gray-200 border border-solid">
+                                                                <label htmlFor={classification.type}>
+                                                                    <input type="checkbox" key={`classification--${classification.id}`} name={classification.type} value={classification.id} onClick={() => {
+                                                                        const copy = [...selectedClassifications]
+                                                                        copy.push(classification.id)
+                                                                        setSelectedClassifications(copy)
+                                                                        handleChange()
+                                                                    }
+                                                                    } />{classification.type}</label>
+                                                            </div>)}</>
+                                                }
+                                            </>
 
-                                    }) :
-                                    classifications.map(classification => {
-                                        return <>
-                                            {(originalArt.classification?.some(t => t.id === classification.id) ?
-                                                <>
-                                                    {expandedClass && (
-                                                        <div className="border-gray-200 border border-solid">
-                                                            <label htmlFor={classification.type}>
-                                                                <input type="checkbox" key={`classification--${classification.id}`} defaultChecked={true} name={classification.type} value={classification.id}
-                                                                    onClick={(e) => {
+                                        }) :
+                                        classifications.map(classification => {
+                                            return <>
+                                                {(originalArt.classification?.some(t => t.id === classification.id) ?
+                                                    <>
+                                                        {expandedClass && (
+                                                            <div className="border-gray-200 border border-solid">
+                                                                <label htmlFor={classification.type}>
+                                                                    <input type="checkbox" key={`classification--${classification.id}`} defaultChecked={true} name={classification.type} value={classification.id}
+                                                                        onClick={(e) => {
+                                                                            const classification = {}
+                                                                            classification.classification_id = e.target.value
+                                                                            removeClassification(classification, originalArt.id)
+                                                                                .then(() => handleChange())
+
+
+                                                                        }} />
+                                                                    {classification.type}</label>
+                                                            </div>)}
+                                                    </>
+                                                    : <>
+                                                        {expandedClass && (
+                                                            <div className="border-gray-200 border border-solid">
+                                                                <label htmlFor={classification.type}>
+                                                                    <input type="checkbox" key={`classification--${classification.id}`} name={classification.type} value={classification.id} onClick={(e) => {
                                                                         const classification = {}
                                                                         classification.classification_id = e.target.value
-                                                                        removeClassification(classification, originalArt.id)
+                                                                        addClassification(classification, originalArt.id)
                                                                             .then(() => handleChange())
 
-
                                                                     }} />
-                                                                {classification.type}</label>
-                                                        </div>)}
-                                                </>
-                                                : <>
-                                                    {expandedClass && (
-                                                        <div className="border-gray-200 border border-solid">
-                                                            <label htmlFor={classification.type}>
-                                                                <input type="checkbox" key={`classification--${classification.id}`} name={classification.type} value={classification.id} onClick={(e) => {
-                                                                    const classification = {}
-                                                                    classification.classification_id = e.target.value
-                                                                    addClassification(classification, originalArt.id)
-                                                                        .then(() => handleChange())
 
-                                                                }} />
-
-                                                                {classification.type}
-                                                            </label>
-                                                        </div>)}
-                                                </>
-                                            )}
-                                        </>
+                                                                    {classification.type}
+                                                                </label>
+                                                            </div>)}
+                                                    </>
+                                                )}
+                                            </>
+                                        }
+                                        )
                                     }
-                                    )
-                                }
+                                </div>
                             </div>
                         </fieldset><br></br>
 
 
                         <fieldset>
                             <div className="field">
-                                <div class="control">
-                                    <label class="label" htmlFor="style"> Styles: </label>
+                                <div className="control">
+                                    <label className="label" htmlFor="style"> Styles: </label>
                                     <div onClick={toggleStyleExpanded}>
                                         <div
                                             className={`font-semibold cursor-pointer ${expandedStyle ? "up-arrow" : "down-arrow"
@@ -530,8 +539,8 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
 
                         <fieldset>
                             <div className="field">
-                                <div class="control">
-                                    <label class="label" htmlFor="genre"> Genres: </label>
+                                <div className="control">
+                                    <label className="label" htmlFor="genre"> Genres: </label>
                                     <div onClick={toggleGenreExpanded}>
                                         <div
                                             className={`font-semibold cursor-pointer ${expandedGenre ? "up-arrow" : "down-arrow"
@@ -553,7 +562,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                 {selectedGenres.includes(genre.id) ?
                                                     //if the genre is in the array
                                                     <>
-                                                        <input type="checkbox" key={`genre--${genre.id}`} deafultChecked={true} name={genre.type} value={genre.id} onClick={(e) => {
+                                                        <input type="checkbox" key={`genre--${genre.id}`} defaultChecked={true} name={genre.type} value={genre.id} onClick={(e) => {
                                                             const copy = [...selectedGenres]
                                                             const filteredCopy = copy.filter(t => t != e.target.value)
                                                             setSelectedGenres(filteredCopy)
@@ -624,8 +633,8 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
 
                         <fieldset>
                             <div className="field">
-                                <div class="control">
-                                    <label class="label" htmlFor="medium"> Mediums: </label>
+                                <div className="control">
+                                    <label className="label" htmlFor="medium"> Mediums: </label>
                                     <div onClick={toggleMediumExpanded}>
                                         <div
                                             className={`font-semibold cursor-pointer ${expandedMedium ? "up-arrow" : "down-arrow"
@@ -717,7 +726,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                         </fieldset>
                         <br></br>
                     </div>
-                    <div className="column is-one-quarter"></div>
+                    <div className="column is-one-fifth"></div>
                 </div>
             </div>
 

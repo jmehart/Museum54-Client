@@ -85,85 +85,129 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                 dateEntered: new Date(),
                 user: currentUser.id
             })
-                .then((res) => history.push(`/artists/${res.id}`))
+                .then((res) => history.push(`/donate`))
         }
-}
+    }
 
-return (
-    <form className="artistForm">
-        <h2 className="artistForm__title">{editMode ? "Edit Artist" : "Add Artist"}</h2>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="name"> Artist Name: </label>
-                <input type="text" id="name" name="name" required autoFocus className="form-control"
-                    placeholder="Artist name"
-                    value={artist.name}
-                    onChange={handleInputChange}
-                />
+    return (
+        <form className="artistForm">
+            <br></br>
+            <div className="columns is-centered">
+                <div className="is-full">
+                    <h1 className="title">{editMode ? "Edit Artist" : "Add Artist"}</h1>
+                </div>
             </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="bio"> Bio: </label>
-                <input type="text" name="bio" id="bio" required autoFocus className="form-control"
-                    placeholder="Artist bio"
-                    value={artist.bio}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="image"> Image URL: </label>
-                <input type="text" id="image" name="image" required autoFocus className="form-control"
-                    placeholder="Image Url"
-                    value={artist.image}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="birth"> Birth: </label>
-                <input type="text" name="birth" id="birth" required autoFocus className="form-control"
-                    placeholder="Artist birth"
-                    value={artist.birth}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="death"> Death: </label>
-                <input type="text" name="death" id="death" required autoFocus className="form-control"
-                    placeholder="Artist death"
-                    value={artist.death}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form_group">
-                <label htmlFor="nationality"> Nationality: </label>
-                <input type="text" name="nationality" id="nationality" required autoFocus className="form-control"
-                    placeholder="Artist nationality"
-                    value={artist.nationality}
-                    onChange={handleInputChange}
-                />
-            </div>
-        </fieldset>
+            <br></br>
 
-        <div>
-            <button type="submit"
-                onClick={evt => {
-                    evt.preventDefault()
-                    createNewArtist()
-                }}
-                className="bt btn-primary">
-                {editMode ? "Save Changes" : "Create Artist"}
-            </button>
-        </div>
-        {editMode ? <Link to={`/artists/${artist.id}`} className="cancel-btn">Cancel</Link> : <Link to={'/donate'} className="cancel-btn">Cancel</Link>}
-    </form>
-)
+            <div className="container">
+                <div className="columns is-multiline is-centered">
+                    <div className="column is-one-fifth"></div>
+                    <div className="column is-one-fifth">
+                        <fieldset>
+                            <div className="field">
+                                <label className="label" htmlFor="image"> Image URL: </label>
+                                <div className="control">
+                                    <input type="text" id="image" name="image" required autoFocus className="input"
+                                        placeholder="Image Url"
+                                        value={artist.image}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <div className="column is-two-fifths">
+                        <fieldset>
+                            <div className="field">
+                                <label className="label" htmlFor="name"> Artist Name: </label>
+                                <div className="control">
+                                    <input type="text" id="name" name="name" required autoFocus className="input"
+                                        placeholder="Artist name"
+                                        value={artist.name}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br></br>
+                        <fieldset>
+                            <div className="field">
+                                <label className="label" htmlFor="bio"> Bio: </label>
+                                <div className="control">
+                                    <textarea type="text" name="bio" id="bio" required autoFocus className="textarea"
+                                        placeholder="Artist bio"
+                                        value={artist.bio}
+                                        onChange={handleInputChange}
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br></br>
+                        <fieldset>
+                            <div className="field">
+                                <label className="label" htmlFor="birth"> Birth: </label>
+                                <div className="control">
+                                    <input className="input" type="text" name="birth" id="birth" required autoFocus 
+                                        placeholder="Artist birth"
+                                        value={artist.birth}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br></br>
+                        <fieldset>
+                            <div className="field">
+                                <label className="label" htmlFor="death"> Death: </label>
+                                <div className="control">
+                                    <input className="input" type="text" name="death" id="death" required autoFocus 
+                                        placeholder="Artist death"
+                                        value={artist.death}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br></br>
+                        <fieldset>
+                            <div className="field">
+                                <label className="label" htmlFor="nationality"> Nationality: </label>
+                                <div className="control">
+                                    <input className="input" type="text" name="nationality" id="nationality" required autoFocus 
+                                        placeholder="Artist nationality"
+                                        value={artist.nationality}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                            </div>
+                        </fieldset>
+                        <br></br>
+                    </div>
+                    <div className="column is-one-fifth"></div>
+                </div>
+            </div>
+
+            <div className="field is-grouped is-grouped-centered">
+                <p className="control">
+
+                    <button type="submit"
+                        onClick={evt => {
+                            evt.preventDefault()
+                            createNewArtist()
+                        }}
+                        className="button is-primary">
+                        {editMode ? "Save Changes" : "Create Artist"}
+                    </button>
+                </p>
+
+                <p className="control">
+                    <a className="button is-light">
+                        {editMode ? <Link to={`/artists/${artist.id}`} className="cancel-btn">Cancel</Link> : <Link to={'/donate'} className="cancel-btn">Cancel</Link>}
+                    </a>
+                </p>
+            </div>
+            <br></br>
+        </form >
+
+    )
 }
