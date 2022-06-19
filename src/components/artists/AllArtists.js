@@ -27,23 +27,26 @@ export const AllArtists = ({ setRefreshState, refreshState }) => {
 
 
     return <>
+        <section className="artists-section">
+            <br></br>
 
-        <div className="singleArtist">
-        <h2>Artists</h2>
-        </div>
-        {
-            artists.length > 0
-                ? artists.map((artist) => {
-                    return <div key={artist.id} className="artists">
-                        {
-                            <Artist listView={true} cardView={false} artist={artist} currentUser={currentUser} />
-                            //does not display unapproved artists
-                        }
-                    </div>
-                    // needs author name and category, publication date, content 
-                })
-                : "No artists"
-        }
+            <h2 className="title has-text-centered has-text-black">Artists</h2>
 
+            <div className="columns is-multiline is-centered is-gapless mx-6 px-6">
+
+                {
+                    artists.length > 0
+                        ? artists.map((artist) => {
+                            return <div key={artist.id} className="column is-half is-narrow has-text-centered">
+                                {
+                                    <Artist listView={true} cardView={false} artist={artist} currentUser={currentUser} />
+                                    //does not display unapproved artists
+                                }
+                            </div>
+                            // needs author name and category, publication date, content 
+                        })
+                        : "No artists"
+                }
+            </div></section>
     </>
 }

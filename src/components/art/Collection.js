@@ -29,12 +29,10 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
     return <>
         <section className="collection-section">
         <br></br>
-            <div className="columns is-centered">
-                <div className="is-full">
-                    <h2 className="title has-text-black">Collection</h2>
-                </div>
-            </div>
-            <div className="columns is-multiline is-centered">
+            
+                    <h2 className="title has-text-black has-text-centered">Collection</h2>
+                
+            <div className="columns is-multiline is-centered is-gapless mx-5">
 
                 {
                     art.length > 0

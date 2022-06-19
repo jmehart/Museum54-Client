@@ -22,7 +22,7 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
   }
 
   return (
-    <nav className="navbar is-success mb-3" role="navigation" aria-label="main navigation">
+    <nav className="navbar is-info mb-3" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
           {/* <img src={Logo} height="3rem" /> <h1 className="title is-4">Rare Publishing</h1> */}
