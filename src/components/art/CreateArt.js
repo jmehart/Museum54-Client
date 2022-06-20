@@ -187,7 +187,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
             <br></br>
             <div className="columns is-centered">
                 <div className="is-full">
-                    <h1 className="title">{editMode ? "Edit Art" : "Add Art"}</h1>
+                    <h1 className="title has-text-black has-text-centered">{editMode ? "Edit Art" : "Add Art"}</h1>
                 </div>
             </div>
             <br></br>
@@ -323,7 +323,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             <div className="field">
                                 <div className="control">
                                     <label className="checkbox" htmlFor="framed">
-                                        <input type="checkbox" name="framed" id="framed" required 
+                                        <input type="checkbox" name="framed" id="framed"  
                                             value={art.framed}
                                             onChange={handleInputChange}
                                         />

@@ -94,7 +94,7 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
             <br></br>
             <div className="columns is-centered">
                 <div className="is-full">
-                    <h1 className="title">{editMode ? "Edit Artist" : "Add Artist"}</h1>
+                    <h1 className="title has-text-black has-text-centered">{editMode ? "Edit Artist" : "Add Artist"}</h1>
                 </div>
             </div>
             <br></br>

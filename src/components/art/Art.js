@@ -58,28 +58,33 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                     </div>
                     : //Detailed art single view 
                     <div key={`art--${art.id}`} className="artDetails">
-                        <div className="artDetailsMain">
-                            <div className="artDetailsTitle">
-                                <div className="cardButtons">
+                        <section className="artDetailsMain">
+                            <br></br>
+
+                            <h2 className="title has-text-black has-text-centered">{art.title}</h2>
+                            <h3 className="has-text-centered">By {art.artist?.name}</h3>
+
+                            <br></br>
+                            <div className="has-text-centered"><img src={`${art.image || "https://picsum.photos/300/100"}`} /></div>
+                            <br></br>
+                            <div className="columns is-multiline">
+                                <div className="column is-half">
+                                    <p className="subtitle is-5">Description <br></br> <strong>{art.description}</strong></p>
+                                    <p className="subtitle is-5">Date Made <br></br> <strong>{art.dateMade}</strong></p>
+                                    <p className="subtitle is-5">Date Acquired <br></br> <strong>{art.dateAcquired}</strong></p>
+                                    <p className="subtitle is-5">Location <br></br> <strong>{art.location}</strong></p>
+                                    <p className="subtitle is-5">Dimensions <br></br> <strong>{art.dimensions}</strong></p>
+                                    <p className="subtitle is-5">Framed <br></br> <strong>{`${art.framed ? "Yes" : "No"}`}</strong></p>
+                                    <p className="subtitle is-5">Signature <br></br> <strong>{`${art.signature ? "Yes" : "No"}`}</strong></p>
                                 </div>
-                                <h2>{art.title}</h2>
-                                <h3>By {art.artist?.name}</h3>
+                                <div key={art.id} className="column is-half">
+                                    <p className="subtitle is-5">Classifications {art.classification.map(c => <div key={`artclassification${art.id}${c.id}`}> <strong>{c.type}</strong></div>)}</p>
+                                    <p className="subtitle is-5">Styles {art.style.map(s => <div key={`artStyle${art.id}${s.id}`}> <strong>{s.type}</strong></div>)}</p>
+                                    <p className="subtitle is-5">Genres {art.genre.map(g => <div key={`artGenre${art.id}${g.id}`}> <strong>{g.type}</strong></div>)}</p>
+                                    <p className="subtitle is-5">Mediums {art.medium.map(m => <div key={`artMedium${art.id}${m.id}`}> <strong>{m.type}</strong></div>)}</p>
+                                </div>
                             </div>
-                            <div><img src={`${art.image || "https://picsum.photos/300/100"}`} /></div>
-                            <div className="artDetailsBelowImage">
-                                <h4>Art Details</h4>
-                                <div>Description: {art.description}</div>
-                                <div>Date Made: {art.dateMade}</div>
-                                <div>Date Acquired: {art.dateAcquired}</div>
-                                <div>Location: {art.location}</div>
-                                <div>Dimensions (inches): {art.dimensions}</div>
-                                <div>Framed: {`${art.framed ? "Yes" : "No"}`}</div>
-                                <div>Signature: {`${art.signature ? "Yes" : "No"}`}</div>
-                                <div>Classifications: <ul>{art.classification.map(c => <li key={`artclassification${art.id}${c.id}`}>{c.type}</li>)}</ul></div>
-                                <div>Styles: <ul>{art.style.map(s => <li key={`artStyle${art.id}${s.id}`}>{s.type}</li>)}</ul></div>
-                                <div>Genres: <ul>{art.genre.map(g => <li key={`artGenre${art.id}${g.id}`}>{g.type}</li>)}</ul></div>
-                                <div>Mediums: <ul>{art.medium.map(m => <li key={`artMedium${art.id}${m.id}`}>{m.type}</li>)}</ul></div>
-                            </div><br></br>
+                            <br></br>
                             <div className="artistDetailsBelowImage">
                                 <h4>Artist Details</h4>
                                 Name: <Link to={`/artists/${art.artist.id}`}>
@@ -106,7 +111,7 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                                 updateArt(copy)
                                     .then(() => history.push('/collection'))
                             }}>Go Back</button>
-                        </div>
+                        </section>
                     </div>
         }
     </>
