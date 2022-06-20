@@ -32,12 +32,12 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
             
                     <h2 className="title has-text-black has-text-centered">Collection</h2>
                 
-            <div className="columns is-multiline">
+            <div className="columns is-multiline is-centered">
 
                 {
                     art.length > 0
                         ? art.map((art) => {
-                            return <div key={art.id} className="column is-one-third">
+                            return <div key={art.id} className="column is-one-quarter">
                                 <a>
                                     {
                                         <Art listView={true} cardView={false} art={art} currentUser={currentUser} />

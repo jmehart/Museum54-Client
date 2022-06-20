@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react"
+import 'react-slideshow-image/dist/styles.css'
 import { useHistory } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import { Link } from "react-router-dom"
@@ -65,7 +66,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                     ? <div key={`artist--${artist.id}`} className="singleArtist">
                         {<div>
                             <Link to={`/artists/${artist.id}`}>
-                            <header><p className="subtitle has-text-centered"> {artist.name} </p></header><br></br>
+                                <header><p className="subtitle has-text-centered"> {artist.name} </p></header><br></br>
                                 <img width="200" height="200" src={`${artist.image || "https://picsum.photos/300/100"}`} />
 
                             </Link>
@@ -75,57 +76,71 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                     </div>
                     : //Detailed artist single view 
                     <div key={`artist--${artist.id}`} className="artistDetails">
-                        <div className="artistDetailsMain">
-                            <div className="artistDetailsTitle">
-                                {/* <div className="cardButtons">
-                                    {   
-                                        currentUser?.id === artist.curator.id
-                                            ? <>
-                                            <ButtonControls isArtist={true} id={artist.id} />
-                                            </>
-                                            : null
-                                    }
-                                </div> */}
-                                <h2>{artist.name}</h2>
-                            </div>
-                            <div><img src={`${artist.image || "https://picsum.photos/300/100"}`} /></div>
-                            <div className="artistDetailsBelowImage">
-                                <h4>Artist Details</h4>
-                                <div>Birth: {artist.birth}</div>
-                                <div>Death: {artist.death}</div>
-                                <div>Bio: {artist.bio}</div>
-                                <div>Nationality: {artist.nationality}</div>
-                            </div><br></br>
+                        <section className="artistDetailsMain mx-6">
 
-                            <div><h4>Art created by {artist.name} </h4>
-                                <div>{artist.art.map(a =>
-                                    <div key={`artistArt${artist.id}${a.id}`}><Link to={`/collection/art/${a.id}`} className="cancel-btn"><p>{a.title}</p><img width="200" height="200" src={`${a.image || "https://picsum.photos/300/100"}`} /></Link></div>
+                            <br></br>
+
+                            <h2 className="title has-text-black has-text-centered">{artist.name}</h2>
+
+                            <div className="has-text-centered"><img style={{ width: "400px", margin: "30px 0" }} src={`${artist.image || "https://picsum.photos/300/100"}`} /></div>
+                            <br></br>
+                            <div className="columns is-multiline">
+                                <div className="column is-one-third"></div>
+                                <div className="column is-one-third">
+                                    <p className="subtitle is-5 has-text-centered">Artist Details</p>
+                                    <br></br>
+                                    <p className="subtitle is-6">Birth: <strong>{artist.birth}</strong></p>
+                                    <p className="subtitle is-6">Death: <strong>{artist.death}</strong></p>
+                                    <p className="subtitle is-6">Nationality: <strong>{artist.nationality}</strong></p>
+                                    <p className="subtitle is-6">Bio: <br></br><strong>{artist.bio}</strong></p>
+
+                                    <br></br>
+                                </div>
+
+                                <div className="column is-one-third"></div>
+                            </div>
+
+                            <div><p className="subtitle is-5 has-text-centered">Art Created By {artist.name} </p>
+                                <div className="has-text-centered">{artist.art.map(a =>
+                                    <div key={`artistArt${artist.id}${a.id}`}><Link to={`/collection/art/${a.id}`}><p>{a.title}</p><img width="200" src={`${a.image || "https://picsum.photos/300/100"}`} /></Link></div>
                                 )}</div>
+
 
                             </div>
                             <br></br>
+                            <br></br>
+                            <br></br>
 
                             <div className="artistDetailsBelowCard">
-                                <div>Artist Submitted By: {artist.curator?.user?.username} on {formatDate(artist.dateEntered)}
+                                <div className="has-text-centered">Artist Submitted By: {artist.curator?.user?.username} on {formatDate(artist.dateEntered)}
                                     {/* <Link to={`/users/${artist.author.id}`} > */}
                                     {/* {artist.curator.user.username} */}
                                     {/* </Link> */}
 
                                 </div>
+                            </div><br></br>
+
+                            <div className="field is-grouped is-grouped-centered is-3">
+
+                                <p className="control">
+
+                                    <button className="button is-info" onClick={() => {
+                                        history.push(`/editArtist/${artist.id}`)
+                                    }}>Edit</button>
+
+                                </p>
+
+                                <p className="control">
+
+                                    <button className="button is-light" onClick={() => {
+                                        const copy = { ...artist }
+                                        updateArtist(copy)
+                                            .then(() => history.push('/artists'))
+                                    }}>Go Back</button>
+
+                                </p>
                             </div>
-
-                            <button onClick={() => {
-
-                                history.push(`/editArtist/${artist.id}`)
-
-                            }}>Edit</button>
-
-                            <button onClick={() => {
-                                const copy = { ...artist }
-                                updateArtist(copy)
-                                    .then(() => history.push('/artists'))
-                            }}>Go Back</button>
-                        </div>
+                        </section><br></br>
                     </div>
         }
     </>

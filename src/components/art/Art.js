@@ -52,8 +52,8 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                             <Link to={`/collection/art/${art.id}`}>
                                 <header><p className="subtitle has-text-centered"> {art.title}</p></header>
                                 <br></br>
-                                <div>
-                                    <figure className="image is-fullwidth"><img className="column" width="200" height="200" src={`${art.image || "https://picsum.photos/300/100"}`} /> </figure></div>
+                                <div className="has-text-centered">
+                                    <img width="200" src={`${art.image || "https://picsum.photos/300/100"}`} /> </div>
                             </Link>
 
                         </div>}
