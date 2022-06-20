@@ -27,17 +27,17 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
 
 
     return <>
-        <section className="collection-section">
+        <section className="collection-section mx-6">
         <br></br>
             
                     <h2 className="title has-text-black has-text-centered">Collection</h2>
                 
-            <div className="columns is-multiline is-centered is-gapless mx-5">
+            <div className="columns is-multiline">
 
                 {
                     art.length > 0
                         ? art.map((art) => {
-                            return <div key={art.id} className="column is-one-third is-narrow has-text-centered">
+                            return <div key={art.id} className="column is-one-third">
                                 <a>
                                     {
                                         <Art listView={true} cardView={false} art={art} currentUser={currentUser} />

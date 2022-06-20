@@ -65,7 +65,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                     ? <div key={`artist--${artist.id}`} className="singleArtist">
                         {<div>
                             <Link to={`/artists/${artist.id}`}>
-                                {artist.name} <br></br>
+                            <header><p className="subtitle has-text-centered"> {artist.name} </p></header><br></br>
                                 <img width="200" height="200" src={`${artist.image || "https://picsum.photos/300/100"}`} />
 
                             </Link>
