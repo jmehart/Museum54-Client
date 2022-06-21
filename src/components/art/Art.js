@@ -64,7 +64,7 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                         <section className="artDetailsMain mx-6">
                             <br></br>
 
-                            <h2 className="title has-text-black has-text-centered">{art.title}</h2>
+                            <h2 className="title has-text-centered">{art.title}</h2>
                             <h3 className="has-text-centered">By {art.artist?.name}</h3>
 
                             <br></br>

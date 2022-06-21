@@ -80,7 +80,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
 
                             <br></br>
 
-                            <h2 className="title has-text-black has-text-centered">{artist.name}</h2>
+                            <h2 className="title has-text-centered">{artist.name}</h2>
 
                             <div className="has-text-centered"><img style={{ width: "400px", margin: "30px 0" }} src={`${artist.image || "https://picsum.photos/300/100"}`} /></div>
                             <br></br>

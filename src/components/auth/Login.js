@@ -4,7 +4,7 @@ import "./Auth.css"
 import { loginUser } from "./AuthManager"
 
 
-export const Login = ( { setToken }) => {
+export const Login = ({ setToken }) => {
   const username = useRef()
   const password = useRef()
   const invalidDialog = useRef()
@@ -35,22 +35,30 @@ export const Login = ( { setToken }) => {
         <div>Username or password was not valid.</div>
         <button onClick={e => invalidDialog.current.close()}>Close</button>
       </dialog>
-      <section>
-        <form onSubmit={handleLogin}>
-          <fieldset>
-            <label htmlFor="inputUsername"> Username</label>
-            <input ref={username} type="username" id="username" placeholder="Username address" required autoFocus />
+      <br></br>
+      <h2 className="title has-text-centered">Welcome to Museum54</h2>
+      <br></br>
+      <section className="columns">
+        <form className="box has-text-centered column is-half is-offset-one-quarter" onSubmit={handleLogin}>
+          <fieldset className="field">
+            <label className="label" htmlFor="inputUsername"> Username</label>
+            <div className="control">
+              <input ref={username} type="username" id="username" placeholder="Username address" required autoFocus />
+            </div>
           </fieldset>
-          <fieldset>
-            <label htmlFor="inputPassword"> Password </label>
-            <input ref={password} type="password" id="password" placeholder="Password" required />
+          <fieldset className="field">
+            <label className="label" htmlFor="inputPassword"> Password </label>
+            <div className="control">
+              <input ref={password} type="password" id="password" placeholder="Password" required />
+            </div>
           </fieldset>
-          <fieldset>
-            <button type="submit">Sign In</button>
+          <fieldset className="field">
+            <button className="button is-primary" type="submit">Sign In</button>
           </fieldset>
         </form>
       </section>
-      <section>
+      <br></br>
+      <section className="has-text-centered">
         <Link to="/register">Not a member yet?</Link>
       </section>
     </main>

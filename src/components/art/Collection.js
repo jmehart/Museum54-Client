@@ -30,7 +30,7 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
         <section className="collection-section mx-6">
         <br></br>
             
-                    <h2 className="title has-text-black has-text-centered">Collection</h2>
+                    <h2 className="title has-text-centered">Collection</h2>
                 
             <div className="columns is-multiline is-centered">
 
