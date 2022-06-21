@@ -48,9 +48,12 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                 : listView
                     ? <div key={`art--${art.id}`} className="singleArt">
                         {<div>
+
                             <Link to={`/collection/art/${art.id}`}>
-                                {art.title}<br></br>
-                                <img width="200" height="200" src={`${art.image || "https://picsum.photos/300/100"}`} />
+                                <header><p className="subtitle has-text-centered"> {art.title}</p></header>
+                                <br></br>
+                                <div className="has-text-centered">
+                                    <img width="200" src={`${art.image || "https://picsum.photos/300/100"}`} /> </div>
                             </Link>
 
                         </div>}
@@ -58,61 +61,66 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                     </div>
                     : //Detailed art single view 
                     <div key={`art--${art.id}`} className="artDetails">
-                        <div className="artDetailsMain">
-                            <div className="artDetailsTitle">
-                                <div className="cardButtons">
-                                    {
-                                        <>
-                                            <ButtonControls isArt={true} id={art.id} />
-                                        </>
+                        <section className="artDetailsMain mx-6">
+                            <br></br>
 
-                                    }
+                            <h2 className="title has-text-centered">{art.title}</h2>
+                            <h3 className="has-text-centered">By {art.artist?.name}</h3>
+
+                            <br></br>
+                            <div className="has-text-centered"><img className="is-fullwidth" src={`${art.image || "https://picsum.photos/300/100"}`} /></div>
+                            <br></br>
+                            <div className="columns is-multiline">
+                                <div className="column">
+                                    <p className="subtitle is-5">Description <br></br> <strong>{art.description}</strong></p>
+                                    <p className="subtitle is-5">Date Made <br></br> <strong>{art.dateMade}</strong></p>
+                                    <p className="subtitle is-5">Date Acquired <br></br> <strong>{art.dateAcquired}</strong></p>
+                                    <p className="subtitle is-5">Location <br></br> <strong>{art.location}</strong></p>
+                                    <p className="subtitle is-5">Dimensions <br></br> <strong>{art.dimensions}</strong></p>
+                                    <p className="subtitle is-5">Framed <br></br> <strong>{`${art.framed ? "Yes" : "No"}`}</strong></p>
+                                    <p className="subtitle is-5">Signature <br></br> <strong>{`${art.signature ? "Yes" : "No"}`}</strong></p>
                                 </div>
-                                <h2>{art.title}</h2>
-                                <h3>By {art.artist?.name}</h3>
+                                <div key={art.id} className="column">
+                                    <p className="subtitle is-5">Classifications {art.classification.map(c => <div key={`artclassification${art.id}${c.id}`}> <strong>{c.type}</strong></div>)}</p>
+                                    <p className="subtitle is-5">Styles {art.style.map(s => <div key={`artStyle${art.id}${s.id}`}> <strong>{s.type}</strong></div>)}</p>
+                                    <p className="subtitle is-5">Genres {art.genre.map(g => <div key={`artGenre${art.id}${g.id}`}> <strong>{g.type}</strong></div>)}</p>
+                                    <p className="subtitle is-5">Mediums {art.medium.map(m => <div key={`artMedium${art.id}${m.id}`}> <strong>{m.type}</strong></div>)}</p>
+                                </div>
+
+                                <br></br>
+                                <div className="column is-narrow has-text-centered">
+                                    <div className="box">
+                                        <p className="subtitle is-5">Artist Details</p>
+                                        <Link to={`/artists/${art.artist.id}`}>
+                                            <p className="is-size-5 has-text-link"><strong>{art.artist?.name}</strong></p>
+                                        </Link><br></br>
+                                        <img width="175" height="200" src={`${art.artist?.image || "https://picsum.photos/300/100"}`} />
+                                        <br></br><br></br><div className="">{art.artist?.bio}</div>
+                                    </div><br></br>
+                                </div>
                             </div>
-                            <div><img src={`${art.image || "https://picsum.photos/300/100"}`} /></div>
-                            <div className="artDetailsBelowImage">
-                                <h4>Art Details</h4>
-                                <div>Description: {art.description}</div>
-                                <div>Date Made: {art.dateMade}</div>
-                                <div>Date Acquired: {art.dateAcquired}</div>
-                                <div>Location: {art.location}</div>
-                                <div>Dimensions (inches): {art.dimensions}</div>
-                                <div>Framed: {`${art.framed ? "Yes" : "No"}`}</div>
-                                <div>Signature: {`${art.signature ? "Yes" : "No"}`}</div>
-                                <div>Classifications: <ul>{art.classification.map(c => <li key={`artclassification${art.id}${c.id}`}>{c.type}</li>)}</ul></div>
-                                <div>Styles: <ul>{art.style.map(s => <li key={`artStyle${art.id}${s.id}`}>{s.type}</li>)}</ul></div>
-                                <div>Genres: <ul>{art.genre.map(g => <li key={`artGenre${art.id}${g.id}`}>{g.type}</li>)}</ul></div>
-                                <div>Mediums: <ul>{art.medium.map(m => <li key={`artMedium${art.id}${m.id}`}>{m.type}</li>)}</ul></div>
-                            </div><br></br>
-                            <div className="artistDetailsBelowImage">
-                                <h4>Artist Details</h4>
-                                Name: <Link to={`/artists/${art.artist.id}`}>
-                                    {art.artist?.name}
-                                </Link><br></br>
-                                <img width="175" height="200" src={`${art.artist?.image || "https://picsum.photos/300/100"}`} />
-                                <div>Bio: {art.artist?.bio}</div>
-                            </div><br></br>
 
                             <div className="artDetailsBelowCard">
-                                <div>Art Submitted By: {art.curator?.user?.username} on {formatDate(art.dateEntered)}
+                                <div className="has-text-centered">Art Submitted By: {art.curator?.user?.username} on {formatDate(art.dateEntered)}
                                     {/* <Link to={`/users/${art.author.id}`} > */}
                                     {/* {art.curator.user.username} */}
                                     {/* </Link> */}
 
                                 </div>
-                            </div>
+                            </div><br></br>
 
-                            <ButtonControls isArt={true} id={art.id} />
+                            <div className="field is-grouped is-grouped-centered is-3">
+                                <p className="control">
 
-
-                            <button onClick={() => {
-                                const copy = { ...art }
-                                updateArt(copy)
-                                    .then(() => history.push('/collection'))
-                            }}>Go Back</button>
-                        </div>
+                                    <ButtonControls className="card-footer-item" isArt={true} id={art.id} />
+                                </p>
+                                <p className="control">
+                                    <button className="button is-light" onClick={() => {
+                                        const copy = { ...art }
+                                        updateArt(copy)
+                                            .then(() => history.push('/collection'))
+                                    }}>Go Back</button></p></div>
+                        </section><br></br>
                     </div>
         }
     </>

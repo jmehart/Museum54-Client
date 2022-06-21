@@ -27,23 +27,28 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
 
 
     return <>
+        <section className="collection-section mx-6">
+        <br></br>
+            
+                    <h2 className="title has-text-centered">Collection</h2>
+                
+            <div className="columns is-multiline is-centered">
 
-        <div className="singleArt">
-        <h2>Collection</h2>
-        </div>
-        {
-            art.length > 0
-                ? art.map((art) => {
-                    return <div key={art.id} className="art">
-                        {
-                            <Art listView={true} cardView={false} art={art} currentUser={currentUser} />
-                            //does not display unapproved art
-                        }
-                    </div>
-                    // needs author name and category, publication date, content 
-                })
-                : "No art"
-        }
-
+                {
+                    art.length > 0
+                        ? art.map((art) => {
+                            return <div key={art.id} className="column is-one-quarter">
+                                <a>
+                                    {
+                                        <Art listView={true} cardView={false} art={art} currentUser={currentUser} />
+                                        //does not display unapproved art
+                                    }
+                                </a>
+                            </div>
+                            // needs author name and category, publication date, content 
+                        })
+                        : "No art"
+                }
+            </div></section>
     </>
 }

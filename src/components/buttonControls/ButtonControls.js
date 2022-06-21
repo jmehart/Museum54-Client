@@ -47,18 +47,23 @@ export const ButtonControls = ({ isArt, id, artId, setRefreshState }) => {
 
         </dialog>
         {/* -------------edit button------------- */}
-        <button onClick={() => {
-            if (isArt) {
-                history.push(`/editArt/${id}`)
-            } 
-        }}>
-            Edit
-        </button>
-        <button onClick={() => {
-            const buttonTarget = document.querySelector(`#anything-${id}`)
-            buttonTarget.showModal()
-        }}>
-            Delete
-        </button>
-    </div >
+        <div className="field is-grouped is-grouped-centered">
+            <p className="control">
+                <button className="button is-info" onClick={() => {
+                    if (isArt) {
+                        history.push(`/editArt/${id}`)
+                    }
+                }}>
+                    Edit
+                </button>
+            </p>
+            <p className="control">
+                <button className="button is-danger" onClick={() => {
+                    const buttonTarget = document.querySelector(`#anything-${id}`)
+                    buttonTarget.showModal()
+                }}>
+                    Delete
+                </button></p>
+        </div >
+    </div>
 }

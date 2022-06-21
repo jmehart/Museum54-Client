@@ -6,6 +6,7 @@ import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 import { UserProvider } from "../UserContext"
 import { CommentStateProvider } from "../CommentStateContext"
+import "./App.css";
 
 
 export const App = () => {

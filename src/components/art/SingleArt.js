@@ -19,10 +19,14 @@ export const SingleArt = ({setRefreshState, refreshState}) => {
     )
 
     return <>
+    <div className="container">
+    <div className="columns is-multiline is-centered">
     {   
         art.title
         ? <Art listView={false} cardView={false} art={art} setRefreshState={setRefreshState} refreshState={refreshState}/>
         : "loading"
     }
+    </div>
+    </div>
     </>
 }

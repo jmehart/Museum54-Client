@@ -51,7 +51,7 @@ export const deleteClassification = (classificationId) => {
     })
 }
 
-export const removeClassification = (classification, artId) => {
+export const removeClassification = (classification, artId, setRefreshState) => {
     return fetch(`${Settings.API}/art/${artId}/classification`, {
         method: "DELETE",
         headers: {
@@ -59,9 +59,10 @@ export const removeClassification = (classification, artId) => {
             "Authorization": `Token ${localStorage.getItem("token")}`
         }, body: JSON.stringify(classification)
     })
+    .then(() => setRefreshState(true))
 }
 
-export const addClassification = (classification, artId) => {
+export const addClassification = (classification, artId, setRefreshState) => {
     return fetch(`${Settings.API}/art/${artId}/classification`, {
         method: "POST",
         headers: {
@@ -69,4 +70,5 @@ export const addClassification = (classification, artId) => {
             "Authorization": `Token ${localStorage.getItem("token")}`
         }, body: JSON.stringify(classification)
     })
+    .then(() => setRefreshState(true))
 }
