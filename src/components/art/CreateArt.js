@@ -84,6 +84,23 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
 
     })
 
+    const getBase64 = (file, callback) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(file);
+    }
+
+    const createImageString = (event) => {
+        getBase64(event.target.files[0], (base64ImageString) => {
+            console.log("Base64 of file is", base64ImageString);
+
+            // Update a component state variable to the value of base64ImageString
+            const copy = JSON.parse(JSON.stringify(art))
+            copy[event.target.name] = base64ImageString
+            setArt(copy)
+        });
+    }
+
     //saving classifications
     const [selectedClassifications, setSelectedClassifications] = useState([])
     const [selectedStyles, setSelectedStyles] = useState([])
@@ -197,16 +214,14 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                 <div className="columns is-multiline is-centered">
                     <div className="column is-one-fifth"></div>
                     <div className="column is-one-fifth">
-                        <fieldset>
-                            <div className="field">
-                                <label className="label" htmlFor="image"> Image URL: </label>
-                                <div className="control">
-                                    <input className="input" type="text" id="image" name="image" required 
-                                        placeholder="Image Url"
-                                        value={art.image}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
+                        <fieldset className="field">
+                            <div className="file has-name is-boxed">
+                                <label className="file-label" htmlFor="image">
+                                    <div className="control">
+                                        <input type="file" name="image" id="image" onChange={createImageString} />
+
+                                    </div>
+                                </label>
                             </div>
                         </fieldset>
                     </div>
@@ -245,7 +260,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             <div className="field">
                                 <label className="label" htmlFor="title"> Title: </label>
                                 <div className="control">
-                                    <input className="input" type="text" id="title" name="title" required 
+                                    <input className="input" type="text" id="title" name="title" required
                                         placeholder="Title"
                                         value={art.title}
                                         onChange={handleInputChange}
@@ -258,7 +273,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             <div className="field">
                                 <label className="label" htmlFor="description"> Description: </label>
                                 <div className="control">
-                                    <textarea className="textarea" type="text" name="description" id="description" required 
+                                    <textarea className="textarea" type="text" name="description" id="description" required
                                         placeholder="Description"
                                         value={art.description}
                                         onChange={handleInputChange}
@@ -271,7 +286,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             <div className="field">
                                 <label className="label" htmlFor="dateMade"> Date Made: </label>
                                 <div className="control">
-                                    <input className="input" type="text" name="dateMade" id="dateMade" required 
+                                    <input className="input" type="text" name="dateMade" id="dateMade" required
                                         placeholder="Date Made"
                                         value={art.dateMade}
                                         onChange={handleInputChange}
@@ -284,7 +299,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             <div className="field">
                                 <label className="label" htmlFor="dateAcquired"> Date Acquired: </label>
                                 <div className="control">
-                                    <input className="input" type="text" name="dateAcquired" id="dateAcquired" required 
+                                    <input className="input" type="text" name="dateAcquired" id="dateAcquired" required
                                         placeholder="Date Acquired"
                                         value={art.dateAcquired}
                                         onChange={handleInputChange}
@@ -297,7 +312,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             <div className="field">
                                 <label className="label" htmlFor="location"> Location: </label>
                                 <div className="control">
-                                    <input className="input" type="text" name="location" id="location" required 
+                                    <input className="input" type="text" name="location" id="location" required
                                         placeholder="Location"
                                         value={art.location}
                                         onChange={handleInputChange}
@@ -310,7 +325,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             <div className="field">
                                 <label className="label" htmlFor="dimensions"> Dimensions: </label>
                                 <div className="control">
-                                    <input className="input" type="text" name="dimensions" id="dimensions" required 
+                                    <input className="input" type="text" name="dimensions" id="dimensions" required
                                         placeholder="Dimensions"
                                         value={art.dimensions}
                                         onChange={handleInputChange}
@@ -323,7 +338,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             <div className="field">
                                 <div className="control">
                                     <label className="checkbox" htmlFor="framed">
-                                        <input type="checkbox" name="framed" id="framed"  
+                                        <input type="checkbox" name="framed" id="framed"
                                             value={art.framed}
                                             onChange={handleInputChange}
                                         />
@@ -336,7 +351,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                             <div className="field">
                                 <div className="control">
                                     <label className="checkbox" htmlFor="signature">
-                                        <input type="checkbox" name="signature" id="signature" 
+                                        <input type="checkbox" name="signature" id="signature"
                                             value={art.signature}
                                             onChange={handleInputChange}
                                         />

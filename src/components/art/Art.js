@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { ButtonControls } from "../buttonControls/ButtonControls"
 import { UserContext } from "../../UserContext";
 import { updateArt } from "./ArtManager"
+
 // function that renders a single art
 export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) => {
     const { currentUser } = useContext(UserContext)
@@ -52,8 +53,8 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                             <Link to={`/collection/art/${art.id}`}>
                                 <header><p className="subtitle has-text-centered"> {art.title}</p></header>
                                 <br></br>
-                                <div className="has-text-centered">
-                                    <img width="200" src={`${art.image || "https://picsum.photos/300/100"}`} /> </div>
+                                <div className="has-text-centered px-3 mx-6">
+                                    <img src={`${art.image || "https://picsum.photos/300/100"}`} /> </div>
                             </Link>
 
                         </div>}
@@ -68,9 +69,12 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                             <h3 className="has-text-centered">By {art.artist?.name}</h3>
 
                             <br></br>
-                            <div className="has-text-centered"><img className="is-fullwidth" src={`${art.image || "https://picsum.photos/300/100"}`} /></div>
+                            <div className="columns is-multiline mx-6 px-6">
+                            <div className="column is-full">
+                            <div className="has-text-centered"><img width="800" src={`${art.image || "https://picsum.photos/300/100"}`} /></div>
+                           </div>
                             <br></br>
-                            <div className="columns is-multiline">
+                            
                                 <div className="column">
                                     <p className="subtitle is-5">Description <br></br> <strong>{art.description}</strong></p>
                                     <p className="subtitle is-5">Date Made <br></br> <strong>{art.dateMade}</strong></p>

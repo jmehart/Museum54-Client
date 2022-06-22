@@ -1,5 +1,6 @@
 import { getAllArt, searchArtArtist, searchArtClassifications, searchArtGenres, searchArtMediums, searchArtStyles, searchArtTitles } from "./ArtManager"
 import React, { useEffect, useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import { Art } from "./Art";
 import { UserContext } from "../../UserContext";
 import { getAllArtists } from "../artists/ArtistManager";
@@ -108,11 +109,11 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
             <br></br>
 
             <h2 className="title has-text-centered">Collection</h2>
+            <div className="box ">
+                {/* filter by title jsx */}
+                <section className="columns">
+                    <div className="column is-one-third is-offset-one-third">
 
-            {/* filter by title jsx */}
-            <section className="columns">
-                <div className="column is-one-third is-offset-one-third">
-                    <div className="box">
                         <fieldset className="field has-text-centered" id="titleSearchField">
                             <div className="titleSearch">
                                 <input
@@ -136,156 +137,180 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
 
                             </div>
                         </fieldset>
+
                     </div>
-                </div>
-            </section>
-            <br></br>
+                </section>
+                <br></br>
 
-            <section className="columns is-variable">
+                <section className="columns is-centered is-multiline has-text-centered mx-6 px-6">
 
-                {/* filter by artist jsx */}
-                <fieldset className="column">
-                    <select
-                        className="artistDropdown"
-                        name="artistId"
-                        value={filter.type === "artist" ? filter.value : "0"}
-                        onChange={e => {
-                            e.preventDefault()
-                            if (e.target.value != "0") {
-                                let copy = JSON.parse(JSON.stringify(filter))
-                                copy.type = "artist"
-                                copy.value = parseInt(e.target.value)
-                                setFilterType(copy)
-                                setRefreshArt(true)
-                            }
-                        }}
-                    >
-                        <option name="artistId" hidden value="0">
-                            Filter By Artist
-                        </option>
-                        {artist?.map((a) => {
-                            return (
-                                <option key={a.id} name="ArtistId" value={a.id}>
-                                    {a.name}
+
+                    {/* filter by artist jsx */}
+                    <fieldset className="column is-one-fifth">
+                        <div className="select">
+                            <select
+                                className="artistDropdown"
+                                name="artistId"
+                                value={filter.type === "artist" ? filter.value : "0"}
+                                onChange={e => {
+                                    e.preventDefault()
+                                    if (e.target.value != "0") {
+                                        let copy = JSON.parse(JSON.stringify(filter))
+                                        copy.type = "artist"
+                                        copy.value = parseInt(e.target.value)
+                                        setFilterType(copy)
+                                        setRefreshArt(true)
+                                    }
+                                }}
+                            >
+                                <option name="artistId" disabled value="0">
+                                    Filter By Artist
                                 </option>
-                            );
-                        })}
-                    </select>
-                </fieldset>
+                                {artist?.map((a) => {
+                                    return (
+                                        <option key={a.id} name="ArtistId" value={a.id}>
+                                            {a.name}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                    </fieldset>
 
-                {/* filter by classification jsx */}
-                <fieldset className="column">
-                    <select
-                        className="classificationDropdown"
-                        name="classificationId"
-                        value={filter.type === "classification" ? filter.value : "0"}
-                        onChange={e => {
-                            e.preventDefault()
-                            let copy = JSON.parse(JSON.stringify(filter))
-                            copy.type = "classification"
-                            copy.value = e.target.value
-                            setFilterType(copy)
-                            setRefreshArt(true)
-                        }}
-                    >
-                        <option name="classificationId" hidden value="0">
-                            Filter By Classification
-                        </option>
-                        {classifications?.map((c) => {
-                            return (
-                                <option key={c.id} name="ClassificationId" value={c.id}>
-                                    {c.type}
+                    {/* filter by classification jsx */}
+                    <fieldset className="column is-one-fifth">
+                        <div className="select">
+                            <select
+                                className="classificationDropdown"
+                                name="classificationId"
+                                value={filter.type === "classification" ? filter.value : "0"}
+                                onChange={e => {
+                                    e.preventDefault()
+                                    let copy = JSON.parse(JSON.stringify(filter))
+                                    copy.type = "classification"
+                                    copy.value = e.target.value
+                                    setFilterType(copy)
+                                    setRefreshArt(true)
+                                }}
+                            >
+                                <option name="classificationId" disabled value="0">
+                                    Filter By Classification
                                 </option>
-                            );
-                        })}
-                    </select>
-                </fieldset>
+                                {classifications?.map((c) => {
+                                    return (
+                                        <option key={c.id} name="ClassificationId" value={c.id}>
+                                            {c.type}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                    </fieldset>
 
-                {/* filter by style jsx */}
-                <fieldset className="column">
-                    <select
-                        className="styleDropdown"
-                        name="styleId"
-                        value={filter.type === "style" ? filter.value : "0"}
-                        onChange={e => {
-                            e.preventDefault()
-                            let copy = JSON.parse(JSON.stringify(filter))
-                            copy.type = "style"
-                            copy.value = e.target.value
-                            setFilterType(copy)
-                            setRefreshArt(true)
-                        }}
-                    >
-                        <option name="styleId" hidden value="0">
-                            Filter By Style
-                        </option>
-                        {styles?.map((s) => {
-                            return (
-                                <option key={s.id} name="StyleId" value={s.id}>
-                                    {s.type}
+                    {/* filter by style jsx */}
+                    <fieldset className="column is-one-fifth">
+                        <div className="select">
+                            <select
+                                className="styleDropdown"
+                                name="styleId"
+                                value={filter.type === "style" ? filter.value : "0"}
+                                onChange={e => {
+                                    e.preventDefault()
+                                    let copy = JSON.parse(JSON.stringify(filter))
+                                    copy.type = "style"
+                                    copy.value = e.target.value
+                                    setFilterType(copy)
+                                    setRefreshArt(true)
+                                }}
+                            >
+                                <option name="styleId" disabled value="0">
+                                    Filter By Style
                                 </option>
-                            );
-                        })}
-                    </select>
-                </fieldset>
+                                {styles?.map((s) => {
+                                    return (
+                                        <option key={s.id} name="StyleId" value={s.id}>
+                                            {s.type}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                    </fieldset>
 
-                {/* filter by genre jsx */}
-                <fieldset className="column">
-                    <select
-                        className="genreDropdown"
-                        name="genreId"
-                        value={filter.type === "genre" ? filter.value : "0"}
-                        onChange={e => {
-                            e.preventDefault()
-                            let copy = JSON.parse(JSON.stringify(filter))
-                            copy.type = "genre"
-                            copy.value = e.target.value
-                            setFilterType(copy)
-                            setRefreshArt(true)
-                        }}
-                    >
-                        <option name="genreId" hidden value="0">
-                            Filter By Genre
-                        </option>
-                        {genres?.map((g) => {
-                            return (
-                                <option key={g.id} name="GenreId" value={g.id}>
-                                    {g.type}
+                    {/* filter by genre jsx */}
+                    <fieldset className="column is-one-fifth">
+                        <div className="select">
+                            <select
+                                className="genreDropdown"
+                                name="genreId"
+                                value={filter.type === "genre" ? filter.value : "0"}
+                                onChange={e => {
+                                    e.preventDefault()
+                                    let copy = JSON.parse(JSON.stringify(filter))
+                                    copy.type = "genre"
+                                    copy.value = e.target.value
+                                    setFilterType(copy)
+                                    setRefreshArt(true)
+                                }}
+                            >
+                                <option name="genreId" disabled value="0">
+                                    Filter By Genre
                                 </option>
-                            );
-                        })}
-                    </select>
-                </fieldset>
+                                {genres?.map((g) => {
+                                    return (
+                                        <option key={g.id} name="GenreId" value={g.id}>
+                                            {g.type}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                    </fieldset>
 
-                {/* filter by medium jsx */}
-                <fieldset className="column">
-                    <select
-                        className="mediumDropdown"
-                        name="mediumId"
-                        value={filter.type === "medium" ? filter.value : "0"}
-                        onChange={e => {
-                            e.preventDefault()
-                            let copy = JSON.parse(JSON.stringify(filter))
-                            copy.type = "medium"
-                            copy.value = e.target.value
-                            setFilterType(copy)
-                            setRefreshArt(true)
-                        }}
-                    >
-                        <option name="mediumId" hidden value="0">
-                            Filter By Medium
-                        </option>
-                        {mediums?.map((m) => {
-                            return (
-                                <option key={m.id} name="MediumId" value={m.id}>
-                                    {m.type}
+                    {/* filter by medium jsx */}
+                    <fieldset className="column is-one-fifth">
+                        <div className="select">
+                            <select
+                                className="mediumDropdown"
+                                name="mediumId"
+                                value={filter.type === "medium" ? filter.value : "0"}
+                                onChange={e => {
+                                    e.preventDefault()
+                                    let copy = JSON.parse(JSON.stringify(filter))
+                                    copy.type = "medium"
+                                    copy.value = e.target.value
+                                    setFilterType(copy)
+                                    setRefreshArt(true)
+                                }}
+                            >
+                                <option name="mediumId" disabled value="0">
+                                    Filter By Medium
                                 </option>
-                            );
-                        })}
-                    </select>
-                </fieldset>
+                                {mediums?.map((m) => {
+                                    return (
+                                        <option key={m.id} name="MediumId" value={m.id}>
+                                            {m.type}
+                                        </option>
+                                    );
+                                })}
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset className="column is-one-fifth">
+                        <button type="submit"
+                            onClick={evt => {
+                                getAllArt()
+                                    .then((art) => {
+                                        setArt(art)
 
-            </section>
+                                    })
+                            }}
+                            className="button is-light is-centered">
+                            Refresh
+                        </button>
+                    </fieldset>
+                </section>
+            </div>
             <br></br>
 
             <div className="columns is-multiline is-centered">
@@ -305,6 +330,7 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
                         })
                         : "No art"
                 }
-            </div></section>
+            </div>
+        </section>
     </>
 }

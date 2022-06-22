@@ -43,3 +43,13 @@ export const updateArtist = (artist) => {
     })
         .then(getAllArtists)
 }
+
+
+export const searchArtistName = nameString => {
+    return fetch(`${Settings.API}/artists?name=${nameString}`, {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("token")}`
+      }
+    })
+      .then(res => res.json())
+  };
