@@ -38,7 +38,7 @@ export const AllArtists = ({ setRefreshState, refreshState }) => {
         <section className="artists-section">
             <br></br>
 
-            <h2 className="title has-text-centered">Artists</h2>
+            <h2 className="title has-text-centered is-family-primary is-size-1">Artists</h2>
 
             <div className="box ">
 

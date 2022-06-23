@@ -108,7 +108,7 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
         <section className="collection-section mx-6">
             <br></br>
 
-            <h2 className="title has-text-centered">Collection</h2>
+            <h2 className="title has-text-centered is-family-primary is-size-1">Collection</h2>
             <div className="box ">
                 {/* filter by title jsx */}
                 <section className="columns">

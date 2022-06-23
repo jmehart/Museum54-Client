@@ -80,8 +80,9 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
         dateAcquired: "",
         dateEntered: Date.now(),
         location: "",
-        dimensions: ""
-
+        dimensions: "",
+        framed: false,
+        signature: false
     })
 
     const getBase64 = (file, callback) => {
@@ -144,7 +145,12 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
 
     const handleInputChange = (event) => {
         const newArt = { ...art }
-        newArt[event.target.id] = event.target.value;
+        if (event.target.id === "framed" || event.target.id === "signature") {
+            newArt[event.target.id] = event.target.checked;
+        }
+        else {
+            newArt[event.target.id] = event.target.value;
+        }
         setArt(newArt)
     }
 
@@ -187,8 +193,8 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                 dateEntered: new Date(),
                 location: art.location,
                 dimensions: art.dimensions,
-                framed: false,
-                signature: false,
+                framed: art.framed,
+                signature: art.signature,
                 user: currentUser.id,
                 classification: selectedClassifications,
                 style: selectedStyles,
@@ -339,7 +345,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                 <div className="control">
                                     <label className="checkbox" htmlFor="framed">
                                         <input type="checkbox" name="framed" id="framed"
-                                            value={art.framed}
+                                            checked={art.framed}
                                             onChange={handleInputChange}
                                         />
                                         Framed
@@ -352,7 +358,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                 <div className="control">
                                     <label className="checkbox" htmlFor="signature">
                                         <input type="checkbox" name="signature" id="signature"
-                                            value={art.signature}
+                                            checked={art.signature}
                                             onChange={handleInputChange}
                                         />
                                         Signature
@@ -392,7 +398,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                             const copy = [...selectedClassifications]
                                                             const filteredCopy = copy.filter(t => t != e.target.value)
                                                             setSelectedClassifications(filteredCopy)
-                                                            handleChange()
+                                                           
                                                         }} />
                                                         <label htmlFor={classification.type}>{classification.type}</label>
                                                     </>
@@ -401,11 +407,11 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                         {expandedClass && (
                                                             <div className="border-gray-200 border border-solid">
                                                                 <label htmlFor={classification.type}>
-                                                                    <input type="checkbox" key={`classification--${classification.id}`} name={classification.type} value={classification.id} onClick={() => {
+                                                                    <input type="checkbox" key={`classification--${classification.id}`} name={classification.type} value={classification.id} onClick={(e) => {
                                                                         const copy = [...selectedClassifications]
                                                                         copy.push(classification.id)
                                                                         setSelectedClassifications(copy)
-                                                                        handleChange()
+                                                                     
                                                                     }
                                                                     } />{classification.type}</label>
                                                             </div>)}</>
@@ -425,7 +431,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                             const classification = {}
                                                                             classification.classification_id = e.target.value
                                                                             removeClassification(classification, originalArt.id)
-                                                                                .then(() => handleChange())
+
 
 
                                                                         }} />
@@ -440,7 +446,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                         const classification = {}
                                                                         classification.classification_id = e.target.value
                                                                         addClassification(classification, originalArt.id)
-                                                                            .then(() => handleChange())
+
 
                                                                     }} />
 
@@ -487,7 +493,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                             const copy = [...selectedStyles]
                                                             const filteredCopy = copy.filter(t => t != e.target.value)
                                                             setSelectedStyles(filteredCopy)
-                                                            handleChange()
+                                                            
                                                         }} />
                                                         <label htmlFor={style.type}>{style.type}</label>
                                                     </>
@@ -496,11 +502,10 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                         {expandedStyle && (
                                                             <div className="border-gray-200 border border-solid">
                                                                 <label htmlFor={style.type}>
-                                                                    <input type="checkbox" key={`style--${style.id}`} name={style.type} value={style.id} onClick={() => {
+                                                                    <input type="checkbox" key={`style--${style.id}`} name={style.type} value={style.id} onClick={(e) => {
                                                                         const copy = [...selectedStyles]
                                                                         copy.push(style.id)
                                                                         setSelectedStyles(copy)
-                                                                        handleChange()
                                                                     }
                                                                     } />{style.type}</label>
                                                             </div>)}</>
@@ -520,7 +525,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                             const style = {}
                                                                             style.style_id = e.target.value
                                                                             removeStyle(style, originalArt.id)
-                                                                                .then(() => handleChange())
+
 
 
                                                                         }} />
@@ -535,7 +540,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                         const style = {}
                                                                         style.style_id = e.target.value
                                                                         addStyle(style, originalArt.id)
-                                                                            .then(() => handleChange())
+
 
                                                                     }} />
 
@@ -581,7 +586,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                             const copy = [...selectedGenres]
                                                             const filteredCopy = copy.filter(t => t != e.target.value)
                                                             setSelectedGenres(filteredCopy)
-                                                            handleChange()
+                                                            
                                                         }} />
                                                         <label htmlFor={genre.type}>{genre.type}</label>
                                                     </>
@@ -590,11 +595,11 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                         {expandedGenre && (
                                                             <div className="border-gray-200 border border-solid">
                                                                 <label htmlFor={genre.type}>
-                                                                    <input type="checkbox" key={`genre--${genre.id}`} name={genre.type} value={genre.id} onClick={() => {
+                                                                    <input type="checkbox" key={`genre--${genre.id}`} name={genre.type} value={genre.id} onClick={(e) => {
                                                                         const copy = [...selectedGenres]
                                                                         copy.push(genre.id)
                                                                         setSelectedGenres(copy)
-                                                                        handleChange()
+                                                                        
                                                                     }
                                                                     } />{genre.type}</label>
                                                             </div>)}</>
@@ -614,7 +619,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                             const genre = {}
                                                                             genre.genre_id = e.target.value
                                                                             removeGenre(genre, originalArt.id)
-                                                                                .then(() => handleChange())
+
 
 
                                                                         }} />
@@ -629,7 +634,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                         const genre = {}
                                                                         genre.genre_id = e.target.value
                                                                         addGenre(genre, originalArt.id)
-                                                                            .then(() => handleChange())
+
 
                                                                     }} />
 
@@ -675,7 +680,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                             const copy = [...selectedMediums]
                                                             const filteredCopy = copy.filter(t => t != e.target.value)
                                                             setSelectedMediums(filteredCopy)
-                                                            handleChange()
+                                                            
                                                         }} />
                                                         <label htmlFor={medium.type}>{medium.type}</label>
                                                     </>
@@ -684,11 +689,11 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                         {expandedMedium && (
                                                             <div className="border-gray-200 border border-solid">
                                                                 <label htmlFor={medium.type}>
-                                                                    <input type="checkbox" key={`medium--${medium.id}`} name={medium.type} value={medium.id} onClick={() => {
+                                                                    <input type="checkbox" key={`medium--${medium.id}`} name={medium.type} value={medium.id} onClick={(e) => {
                                                                         const copy = [...selectedMediums]
                                                                         copy.push(medium.id)
                                                                         setSelectedMediums(copy)
-                                                                        handleChange()
+                                                                       
                                                                     }
                                                                     } />{medium.type}</label>
                                                             </div>)}</>
@@ -708,7 +713,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                             const medium = {}
                                                                             medium.medium_id = e.target.value
                                                                             removeMedium(medium, originalArt.id)
-                                                                                .then(() => handleChange())
+
 
 
                                                                         }} />
@@ -723,7 +728,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                         const medium = {}
                                                                         medium.medium_id = e.target.value
                                                                         addMedium(medium, originalArt.id)
-                                                                            .then(() => handleChange())
+
 
                                                                     }} />
 
