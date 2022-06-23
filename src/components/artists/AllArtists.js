@@ -1,5 +1,5 @@
 import { getAllArtists, searchArtistName } from "./ArtistManager"
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Artist } from "./Artist";
 import { UserContext } from "../../UserContext";
 
@@ -32,15 +32,16 @@ export const AllArtists = ({ setRefreshState, refreshState }) => {
     }, [refreshArtists])
 
 
+    const artistName = useRef()
 
 
     return <>
         <section className="artists-section">
             <br></br>
 
-            <h2 className="title has-text-centered is-family-primary has-text-weight-bold is-size-1">Artists</h2>
+            <h2 className="title has-text-black has-text-centered is-family-primary has-text-weight-bold is-size-1">Artists</h2>
 
-            <div className="box ">
+            <div>
 
             <section className="columns">
                     <div className="column is-one-third is-offset-one-third">
@@ -50,6 +51,7 @@ export const AllArtists = ({ setRefreshState, refreshState }) => {
                                 <input
                                     type="text"
                                     className="input"
+                                    ref={artistName}
                                     placeholder="Name..."
                                 />
                                 <br></br>
@@ -58,7 +60,7 @@ export const AllArtists = ({ setRefreshState, refreshState }) => {
                                     e.preventDefault()
                                     let filterToSet = {
                                         type: "name",
-                                        value: e.currentTarget.previousElementSibling.value
+                                        value: artistName.current.value
                                     }
                                     setFilterType(filterToSet)
                                     setRefreshArtists(true)

@@ -210,7 +210,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
             <br></br>
             <div className="columns is-centered">
                 <div className="is-full">
-                    <h1 className="title has-text-centered is-family-primary has-text-weight-bold">{editMode ? "Edit Art" : "Add Art"}</h1>
+                    <h1 className="title has-text-black has-text-centered is-family-primary has-text-weight-bold">{editMode ? "Edit Art" : "Add Art"}</h1>
                 </div>
             </div>
             <br></br>

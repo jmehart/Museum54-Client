@@ -1,5 +1,5 @@
 import { getAllArt, searchArtArtist, searchArtClassifications, searchArtGenres, searchArtMediums, searchArtStyles, searchArtTitles } from "./ArtManager"
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Art } from "./Art";
 import { UserContext } from "../../UserContext";
@@ -101,15 +101,15 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
 
     }, [refreshArt])
 
-
+    const artName = useRef()
 
 
     return <>
         <section className="collection-section mx-6">
             <br></br>
 
-            <h2 className="title has-text-centered is-family-primary has-text-weight-bold is-size-1">Collection</h2>
-            <div className="box ">
+            <h2 className="title has-text-black has-text-centered is-family-primary has-text-weight-bold is-size-1">Collection</h2>
+            <div>
                 {/* filter by title jsx */}
                 <section className="columns">
                     <div className="column is-one-third is-offset-one-third">
@@ -118,29 +118,33 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
                             <div className="titleSearch">
                                 <input
                                     type="text"
+                                    ref={artName}
                                     className="input"
                                     placeholder="Title..."
                                 />
                                 <br></br>
-                                <br></br>
+
+                                <div className="column is-one-third is-offset-one-third">
                                 <button className='button is-primary' onClick={e => {
                                     e.preventDefault()
                                     let filterToSet = {
                                         type: "title",
-                                        value: e.currentTarget.previousElementSibling.value
+                                        value: artName.current.value
                                     }
                                     setFilterType(filterToSet)
                                     setRefreshArt(true)
                                 }}>
+                                    
                                     <label htmlFor="searchButton">Search</label>
                                 </button>
+                                </div>
 
                             </div>
                         </fieldset>
 
                     </div>
                 </section>
-                <br></br>
+                
 
                 <section className="columns is-centered is-multiline has-text-centered mx-6 px-6">
 
@@ -311,6 +315,7 @@ export const AllArt = ({ setRefreshState, refreshState }) => {
                     </fieldset>
                 </section>
             </div>
+            <br></br>
             <br></br>
 
             <div className="columns is-multiline is-centered">

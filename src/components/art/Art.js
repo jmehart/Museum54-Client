@@ -51,10 +51,15 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                         {<div>
 
                             <Link to={`/collection/art/${art.id}`}>
-                                <header><p className="subtitle has-text-centered"> {art.title}</p></header>
-                                <br></br>
-                                <div className="has-text-centered px-3 mx-6">
-                                    <img src={`${art.image || "https://picsum.photos/300/100"}`} /> </div>
+
+                                <div className="column has-text-centered mx-6">
+                                    <img width="200" height="200" src={`${art.image || "https://picsum.photos/300/100"}`} />
+                                    <div>
+                                        <p className="has-text-left has-text-grey"> {art.artist?.name}</p>
+                                        <p className="is-italic has-text-left has-text-grey"> {art.title}</p>
+
+                                    </div>
+                                </div>
                             </Link>
 
                         </div>}
@@ -70,11 +75,11 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
 
                             <br></br>
                             <div className="columns is-multiline mx-6 px-6">
-                            <div className="column is-full">
-                            <div className="has-text-centered"><img width="800" src={`${art.image || "https://picsum.photos/300/100"}`} /></div>
-                           </div>
-                            <br></br>
-                            
+                                <div className="column is-full">
+                                    <div className="has-text-centered"><img width="800" src={`${art.image || "https://picsum.photos/300/100"}`} /></div>
+                                </div>
+                                <br></br>
+
                                 <div className="column">
                                     <p className="subtitle is-5">Description <br></br> <strong>{art.description}</strong></p>
                                     <p className="subtitle is-5">Date Made <br></br> <strong>{art.dateMade}</strong></p>

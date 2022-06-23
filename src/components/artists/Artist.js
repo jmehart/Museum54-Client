@@ -34,6 +34,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
         return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()
     }
 
+
     return <>
         {
             listView && cardView && currentUser
@@ -50,6 +51,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                     <div className="cardImage">
                         <img src={`${artist.image || "https://picsum.photos/300/100"}`} />
                     </div>
+                    
                     <div className="cardBottom">
                         {/* <div className="cardFunctions">
                             {
@@ -73,7 +75,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                             </Link>
 
                         </div>}
-                        <br></br>
+                        <br></br><br></br>
                     </div>
                     : //Detailed artist single view 
                     <div key={`artist--${artist.id}`} className="artistDetails">
