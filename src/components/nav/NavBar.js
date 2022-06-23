@@ -25,7 +25,7 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
     <nav className="navbar is-info-light mb-3" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
-          {/* <img src={Logo} height="3rem" /> <h1 className="title is-4">Rare Publishing</h1> */}
+          <h1 className="title is-4">Museum54</h1>
         </a>
 
         <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={showMobileNavbar} ref={hamburger}>
@@ -47,11 +47,16 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
                 <div className="navbar-item">
                   <Link to="/artists" className="navbar-item">Artists</Link>
                 </div>
-                <div className="navbar-item">
-                  <Link to="/donate" className="navbar-item">Donate</Link>
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <div className="navbar-item">
+                    <Link to="/donate" className="navbar-link">Donate</Link>
+                    <div class="navbar-dropdown is-boxed">
+                    <Link to="/donate/art" className="navbar-item">Add Art</Link>
+                    <Link to="/donate/artist" className="navbar-item">Add Artist</Link>
+
+                    </div>
+                  </div>
                 </div>
-
-
               </>
               : ""
           }

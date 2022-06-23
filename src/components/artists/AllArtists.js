@@ -20,8 +20,8 @@ export const AllArtists = ({ setRefreshState, refreshState }) => {
     useEffect(() => {
         if (filter.type === "all") {
             getAllArtists()
-                .then((artist) => {
-                    setArtists(artist)
+                .then((artists) => {
+                    setArtists(artists)
 
                 })
         } else if (filter.type === "name") {
@@ -38,7 +38,7 @@ export const AllArtists = ({ setRefreshState, refreshState }) => {
         <section className="artists-section">
             <br></br>
 
-            <h2 className="title has-text-centered is-family-primary is-size-1">Artists</h2>
+            <h2 className="title has-text-centered is-family-primary has-text-weight-bold is-size-1">Artists</h2>
 
             <div className="box ">
 

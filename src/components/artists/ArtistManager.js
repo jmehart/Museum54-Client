@@ -47,9 +47,9 @@ export const updateArtist = (artist) => {
 
 export const searchArtistName = nameString => {
     return fetch(`${Settings.API}/artists?name=${nameString}`, {
-      headers: {
-        "Authorization": `Token ${localStorage.getItem("token")}`
-      }
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("token")}`
+        }
     })
-      .then(res => res.json())
-  };
+        .then(res => res.json())
+};
