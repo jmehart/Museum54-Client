@@ -89,12 +89,30 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
         }
     }
 
+    const getBase64 = (file, callback) => {
+        const reader = new FileReader();
+        reader.addEventListener('load', () => callback(reader.result));
+        reader.readAsDataURL(file);
+    }
+
+    const createImageString = (event) => {
+        getBase64(event.target.files[0], (base64ImageString) => {
+            console.log("Base64 of file is", base64ImageString);
+
+            // Update a component state variable to the value of base64ImageString
+            const copy = JSON.parse(JSON.stringify(artist))
+            copy[event.target.name] = base64ImageString
+            setArtist(copy)
+        });
+    }
+
+
     return (
         <form className="artistForm">
             <br></br>
             <div className="columns is-centered">
                 <div className="is-full">
-                    <h1 className="title has-text-centered">{editMode ? "Edit Artist" : "Add Artist"}</h1>
+                    <h1 className="title has-text-black has-text-centered is-family-primary has-text-weight-bold">{editMode ? "Edit Artist" : "Add Artist"}</h1>
                 </div>
             </div>
             <br></br>
@@ -103,16 +121,14 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                 <div className="columns is-multiline is-centered">
                     <div className="column is-one-fifth"></div>
                     <div className="column is-one-fifth">
-                        <fieldset>
-                            <div className="field">
-                                <label className="label" htmlFor="image"> Image URL: </label>
-                                <div className="control">
-                                    <input type="text" id="image" name="image" required autoFocus className="input"
-                                        placeholder="Image Url"
-                                        value={artist.image}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
+                    <fieldset className="field">
+                            <div className="file has-name is-boxed">
+                                <label className="file-label" htmlFor="image">
+                                    <div className="control">
+                                        <input type="file" name="image" id="image" onChange={createImageString} />
+
+                                    </div>
+                                </label>
                             </div>
                         </fieldset>
                     </div>

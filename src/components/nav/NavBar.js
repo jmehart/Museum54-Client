@@ -22,10 +22,10 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
   }
 
   return (
-    <nav className="navbar is-info mb-3" role="navigation" aria-label="main navigation">
+    <nav className="navbar is-info-light mb-3" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
-          {/* <img src={Logo} height="3rem" /> <h1 className="title is-4">Rare Publishing</h1> */}
+          <h1 className="title is-4 is-family-primary has-text-weight-bold has-text-black">Museum54</h1>
         </a>
 
         <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={showMobileNavbar} ref={hamburger}>
@@ -42,16 +42,21 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
               ?
               <>
                 <div className="navbar-item">
-                  <Link to="/collection" className="navbar-item">Collection</Link>
+                  <Link to="/collection" className="navbar-item has-text-weight-bold">Collection</Link>
                 </div>
                 <div className="navbar-item">
-                  <Link to="/artists" className="navbar-item">Artists</Link>
+                  <Link to="/artists" className="navbar-item has-text-weight-bold">Artists</Link>
                 </div>
-                <div className="navbar-item">
-                  <Link to="/donate" className="navbar-item">Donate</Link>
+                <div class="navbar-item has-dropdown is-hoverable">
+                  <div className="navbar-item">
+                    <Link to="/donate" className="navbar-link has-text-weight-bold">Donate</Link>
+                    <div class="navbar-dropdown is-boxed">
+                    <Link to="/donate/art" className="navbar-item">Add Art</Link>
+                    <Link to="/donate/artist" className="navbar-item">Add Artist</Link>
+
+                    </div>
+                  </div>
                 </div>
-
-
               </>
               : ""
           }
@@ -63,7 +68,7 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
               {
                 token
                   ?
-                  <button className="button is-outlined" onClick={() => {
+                  <button className="button is-outlined " onClick={() => {
                     localStorage.removeItem('token')
                     setTokenState(false)
                     setRefreshState(true)

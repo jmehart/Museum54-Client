@@ -7,6 +7,7 @@ import { ButtonControls } from "../buttonControls/ButtonControls"
 import { UserContext } from "../../UserContext";
 import { updateArtist } from "./ArtistManager"
 import { getSingleArt } from "../art/ArtManager"
+import { Settings } from "../utils/Settings"
 // function that renders a single artist
 export const Artist = ({ listView, cardView, artist, refreshState, setRefreshState }) => {
     const { currentUser } = useContext(UserContext)
@@ -33,6 +34,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
         return ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear()
     }
 
+
     return <>
         {
             listView && cardView && currentUser
@@ -49,6 +51,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                     <div className="cardImage">
                         <img src={`${artist.image || "https://picsum.photos/300/100"}`} />
                     </div>
+                    
                     <div className="cardBottom">
                         {/* <div className="cardFunctions">
                             {
@@ -72,7 +75,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
                             </Link>
 
                         </div>}
-                        <br></br>
+                        <br></br><br></br>
                     </div>
                     : //Detailed artist single view 
                     <div key={`artist--${artist.id}`} className="artistDetails">
@@ -82,7 +85,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
 
                             <h2 className="title has-text-centered">{artist.name}</h2>
 
-                            <div className="has-text-centered"><img style={{ width: "400px", margin: "30px 0" }} src={`${artist.image || "https://picsum.photos/300/100"}`} /></div>
+                            <div className="has-text-centered"><img style={{ width: "400px", margin: "30px 0" }} src={`http://localhost:8000${artist.image || "https://picsum.photos/300/100"}`} /></div>
                             <br></br>
                             <div className="columns is-multiline">
                                 <div className="column is-one-third"></div>
@@ -102,7 +105,7 @@ export const Artist = ({ listView, cardView, artist, refreshState, setRefreshSta
 
                             <div><p className="subtitle is-5 has-text-centered">Art Created By {artist.name} </p>
                                 <div className="has-text-centered">{artist.art.map(a =>
-                                    <div key={`artistArt${artist.id}${a.id}`}><Link to={`/collection/art/${a.id}`}><p>{a.title}</p><img width="200" src={`${a.image || "https://picsum.photos/300/100"}`} /></Link></div>
+                                    <div key={`artistArt${artist.id}${a.id}`}><Link to={`/collection/art/${a.id}`}><p>{a.title}</p><img width="200" src={`http://localhost:8000${a.image || "https://picsum.photos/300/100"}`} /></Link></div>
                                 )}</div>
 
 
