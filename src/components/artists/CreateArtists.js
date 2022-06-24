@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { createArtist, getSingleArtist, updateArtist } from "./ArtistManager";
 import { UserContext } from "../../UserContext";
 
+
 export const CreateArtists = ({ setRefreshState, refreshState }) => {
     const { currentUser } = useContext(UserContext)
     const [originalArtist, setOriginalArtist] = useState({})

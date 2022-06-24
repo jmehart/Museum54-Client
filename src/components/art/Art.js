@@ -80,7 +80,7 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                                 </div>
                                 <br></br>
 
-                                <div className="column">
+                                <div className="column is-4">
                                     <p className="subtitle is-5">Description <br></br> <strong>{art.description}</strong></p>
                                     <p className="subtitle is-5">Date Made <br></br> <strong>{art.dateMade}</strong></p>
                                     <p className="subtitle is-5">Date Acquired <br></br> <strong>{art.dateAcquired}</strong></p>
@@ -89,7 +89,7 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                                     <p className="subtitle is-5">Framed <br></br> <strong>{`${art.framed ? "Yes" : "No"}`}</strong></p>
                                     <p className="subtitle is-5">Signature <br></br> <strong>{`${art.signature ? "Yes" : "No"}`}</strong></p>
                                 </div>
-                                <div key={art.id} className="column">
+                                <div key={art.id} className="column is-4">
                                     <p className="subtitle is-5">Classifications {art.classification.map(c => <div key={`artclassification${art.id}${c.id}`}> <strong>{c.type}</strong></div>)}</p>
                                     <p className="subtitle is-5">Styles {art.style.map(s => <div key={`artStyle${art.id}${s.id}`}> <strong>{s.type}</strong></div>)}</p>
                                     <p className="subtitle is-5">Genres {art.genre.map(g => <div key={`artGenre${art.id}${g.id}`}> <strong>{g.type}</strong></div>)}</p>
@@ -97,7 +97,7 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
                                 </div>
 
                                 <br></br>
-                                <div className="column is-narrow has-text-centered">
+                                <div className="column is-narrow is-4 has-text-centered">
                                     <div className="box">
                                         <p className="subtitle is-5">Artist Details</p>
                                         <Link to={`/artists/${art.artist.id}`}>
