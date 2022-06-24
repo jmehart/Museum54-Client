@@ -4,7 +4,7 @@ export const Donate = () => {
 
     return <section className="donate-section">
         <br></br>
-        <h2 className="title has-text-black has-text-centered is-family-primary has-text-weight-bold is-size-1">Donate to Museum 54</h2>
+        <h2 className="title has-text-black has-text-centered is-family-primary has-text-weight-bold is-size-1">Donate to Museum54</h2>
         <br></br>
         
         <div className="buttons is-centered">

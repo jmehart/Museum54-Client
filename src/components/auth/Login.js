@@ -36,7 +36,7 @@ export const Login = ({ setToken }) => {
         <button onClick={e => invalidDialog.current.close()}>Close</button>
       </dialog>
       <br></br>
-      <h2 className="title has-text-centered">Welcome to Museum54</h2>
+      <h2 className="title has-text-black has-text-centered is-family-primary has-text-weight-bold">Welcome to Museum54</h2>
       <br></br>
       <section className="columns">
         <form className="box has-text-centered column is-half is-offset-one-quarter" onSubmit={handleLogin}>

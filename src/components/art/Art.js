@@ -52,13 +52,13 @@ export const Art = ({ listView, cardView, art, refreshState, setRefreshState }) 
 
                             <Link to={`/collection/art/${art.id}`}>
 
-                                <div className="column has-text-centered mx-6">
+                                <div className="column has-text-left mx-6">
                                     <img width="200" height="200" src={`${art.image || "https://picsum.photos/300/100"}`} />
-                                    <div>
-                                        <p className="has-text-left has-text-grey"> {art.artist?.name}</p>
-                                        <p className="is-italic has-text-left has-text-grey"> {art.title}</p>
+                                    
+                                        <div className="has-text-grey"> {art.artist?.name}</div>
+                                        <div className="is-italic has-text-grey"> {art.title}</div>
 
-                                    </div>
+                                    
                                 </div>
                             </Link>
 

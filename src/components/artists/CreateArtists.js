@@ -121,11 +121,12 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                 <div className="columns is-multiline is-centered">
                     <div className="column is-one-fifth"></div>
                     <div className="column is-one-fifth">
-                    <fieldset className="field">
+                        <fieldset className="field">
                             <div className="file has-name is-boxed">
-                                <label className="file-label" htmlFor="image">
-                                    <div className="control">
-                                        <input type="file" name="image" id="image" onChange={createImageString} />
+                                <label className="label" htmlFor="image">
+                                    Image of Artist:
+                                    <div className="control mt-2">
+                                        <input className="input" type="file" name="image" id="image" onChange={createImageString} />
 
                                     </div>
                                 </label>
@@ -150,7 +151,7 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                             <div className="field">
                                 <label className="label" htmlFor="bio"> Bio: </label>
                                 <div className="control">
-                                    <textarea type="text" name="bio" id="bio" required  className="textarea"
+                                    <textarea type="text" name="bio" id="bio" required className="textarea"
                                         placeholder="Artist bio"
                                         value={artist.bio}
                                         onChange={handleInputChange}
@@ -163,7 +164,7 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                             <div className="field">
                                 <label className="label" htmlFor="birth"> Birth: </label>
                                 <div className="control">
-                                    <input className="input" type="text" name="birth" id="birth" required 
+                                    <input className="input" type="text" name="birth" id="birth" required
                                         placeholder="Artist birth"
                                         value={artist.birth}
                                         onChange={handleInputChange}
@@ -176,7 +177,7 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                             <div className="field">
                                 <label className="label" htmlFor="death"> Death: </label>
                                 <div className="control">
-                                    <input className="input" type="text" name="death" id="death" required 
+                                    <input className="input" type="text" name="death" id="death" required
                                         placeholder="Artist death"
                                         value={artist.death}
                                         onChange={handleInputChange}
@@ -189,7 +190,7 @@ export const CreateArtists = ({ setRefreshState, refreshState }) => {
                             <div className="field">
                                 <label className="label" htmlFor="nationality"> Nationality: </label>
                                 <div className="control">
-                                    <input className="input" type="text" name="nationality" id="nationality" required  
+                                    <input className="input" type="text" name="nationality" id="nationality" required
                                         placeholder="Artist nationality"
                                         value={artist.nationality}
                                         onChange={handleInputChange}
