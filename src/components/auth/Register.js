@@ -28,7 +28,7 @@ export const Register = ({ setToken }) => {
   return (
     <main>
       <br></br>
-      <h3 className="subtitle has-text-centered">Register an account</h3>
+      <h3 className="subtitle has-text-black has-text-centered is-family-primary has-text-weight-bold is-size-4">Register an account</h3>
       <br></br>
       <section className="columns">
         <form className="box has-text-centered column is-half is-offset-one-quarter" onSubmit={handleRegister}>

@@ -222,9 +222,10 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                     <div className="column is-one-fifth">
                         <fieldset className="field">
                             <div className="file has-name is-boxed">
-                                <label className="file-label" htmlFor="image">
-                                    <div className="control">
-                                        <input type="file" name="image" id="image" onChange={createImageString} />
+                                <label className="label" htmlFor="image">
+                                    Image of Artwork:
+                                    <div className="control mt-2">
+                                        <input className="input" type="file" name="image" id="image" onChange={createImageString} />
 
                                     </div>
                                 </label>
@@ -398,7 +399,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                             const copy = [...selectedClassifications]
                                                             const filteredCopy = copy.filter(t => t != e.target.value)
                                                             setSelectedClassifications(filteredCopy)
-                                                           
+
                                                         }} />
                                                         <label htmlFor={classification.type}>{classification.type}</label>
                                                     </>
@@ -411,7 +412,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                         const copy = [...selectedClassifications]
                                                                         copy.push(classification.id)
                                                                         setSelectedClassifications(copy)
-                                                                     
+
                                                                     }
                                                                     } />{classification.type}</label>
                                                             </div>)}</>
@@ -493,7 +494,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                             const copy = [...selectedStyles]
                                                             const filteredCopy = copy.filter(t => t != e.target.value)
                                                             setSelectedStyles(filteredCopy)
-                                                            
+
                                                         }} />
                                                         <label htmlFor={style.type}>{style.type}</label>
                                                     </>
@@ -586,7 +587,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                             const copy = [...selectedGenres]
                                                             const filteredCopy = copy.filter(t => t != e.target.value)
                                                             setSelectedGenres(filteredCopy)
-                                                            
+
                                                         }} />
                                                         <label htmlFor={genre.type}>{genre.type}</label>
                                                     </>
@@ -599,7 +600,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                         const copy = [...selectedGenres]
                                                                         copy.push(genre.id)
                                                                         setSelectedGenres(copy)
-                                                                        
+
                                                                     }
                                                                     } />{genre.type}</label>
                                                             </div>)}</>
@@ -680,7 +681,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                             const copy = [...selectedMediums]
                                                             const filteredCopy = copy.filter(t => t != e.target.value)
                                                             setSelectedMediums(filteredCopy)
-                                                            
+
                                                         }} />
                                                         <label htmlFor={medium.type}>{medium.type}</label>
                                                     </>
@@ -693,7 +694,7 @@ export const CreateArt = ({ classifications, styles, genres, mediums, setRefresh
                                                                         const copy = [...selectedMediums]
                                                                         copy.push(medium.id)
                                                                         setSelectedMediums(copy)
-                                                                       
+
                                                                     }
                                                                     } />{medium.type}</label>
                                                             </div>)}</>

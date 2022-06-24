@@ -25,7 +25,7 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
     <nav className="navbar is-info-light mb-3" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <a className="navbar-item" href="/">
-          <h1 className="title is-4 is-family-primary has-text-weight-bold has-text-black">Museum54</h1>
+        <img className="logo" alt="home icon" src={require("/Users/jaimiehart/workspace/server-capstone/Museum54-Client/src/components/images/museum54 logo.jpg")} />
         </a>
 
         <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" onClick={showMobileNavbar} ref={hamburger}>
@@ -47,10 +47,10 @@ export const NavBar = ({ token, setToken, refreshState, setRefreshState, setToke
                 <div className="navbar-item">
                   <Link to="/artists" className="navbar-item has-text-weight-bold">Artists</Link>
                 </div>
-                <div class="navbar-item has-dropdown is-hoverable">
+                <div className="navbar-item has-dropdown is-hoverable">
                   <div className="navbar-item">
                     <Link to="/donate" className="navbar-link has-text-weight-bold">Donate</Link>
-                    <div class="navbar-dropdown is-boxed">
+                    <div className="navbar-dropdown is-boxed">
                     <Link to="/donate/art" className="navbar-item">Add Art</Link>
                     <Link to="/donate/artist" className="navbar-item">Add Artist</Link>
 
